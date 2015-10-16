@@ -1,5 +1,0 @@
-services:
-    adh_wysiwyg.wysiwyg_form_type:
-        class:  "ADH\\WYSIWYGBundle\\Form\\WYSIWYGType"
-        tags:
-            - { name: "form.type", alias: "wysiwyg" }

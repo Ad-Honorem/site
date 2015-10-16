@@ -1,6 +1,6 @@
 <?php
 
-namespace ADH\WYSIWYGBundle\Form;
+namespace ADH\SkeletonBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;

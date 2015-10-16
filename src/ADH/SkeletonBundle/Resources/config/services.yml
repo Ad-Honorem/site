@@ -2,7 +2,12 @@ services:
     adh_skeleton.navbar:
         class:  "ADH\\SkeletonBundle\\Service\\Navbar"
 
-    app.twig_extension:
+    adh_skeleton.form_extension.wysiwyg:
+        class:  "ADH\\SkeletonBundle\\Form\\WYSIWYGType"
+        tags:
+            - { name: "form.type", alias: "wysiwyg" }
+
+    adh_skeleton.twig_extension:
         class:  "ADH\\SkeletonBundle\\Service\\TwigExtension"
         public: false
         tags:

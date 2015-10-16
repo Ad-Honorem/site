@@ -3,7 +3,7 @@
 {% block content %}
 	<h2>Afficher une news</h2>
 	<nav>
-		<a href="{{path('adh_news_view_default')}}">Retour à la page des news</a>
+		<a href="{{path('adh_news_default')}}">Retour à la page des news</a>
 		{% if is_granted("ROLE_ADMIN") %}
 			- <a href="{{ path("adh_news_edit", { "news" : news.id }) }}">Editer</a> - <a href="{{ path("adh_news_delete", { "news" : news.id }) }}">Supprimer</a>
 		{% endif %}	

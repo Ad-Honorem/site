@@ -50,7 +50,7 @@ class CategoryNewsController extends Controller {
 				$em->flush();
 			}
 			
-			return ($this->redirect($this->generateUrl("adh_news_view_default")));
+			return ($this->redirect($this->generateUrl("adh_news_default")));
 		}
 		
 		return ($this->render("ADHNewsBundle:Category:add.html.twig", array(
@@ -79,7 +79,7 @@ class CategoryNewsController extends Controller {
 				$em->flush();
 			}
 			
-			return ($this->redirect($this->generateUrl("adh_news_view_default")));
+			return ($this->redirect($this->generateUrl("adh_news_default")));
 		}
 		
 		return ($this->render("ADHNewsBundle:Category:edit.html.twig", array(
@@ -109,7 +109,7 @@ class CategoryNewsController extends Controller {
 				$em->flush();
 			}
 			
-			return ($this->redirect($this->generateUrl("adh_news_view_default")));
+			return ($this->redirect($this->generateUrl("adh_news_default")));
 		}
 		
 		return ($this->render("ADHNewsBundle:Category:delete.html.twig", array(

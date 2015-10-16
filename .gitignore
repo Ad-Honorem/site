@@ -1,0 +1,13 @@
+# IDE
+/.settings
+.buildpath
+.project
+
+# Cache and logs
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+
+# Config
+/app/config/parameters.yml

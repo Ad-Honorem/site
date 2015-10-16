@@ -9,9 +9,7 @@ $(function() {
 			$wysiwyg.on("mouseup", function(event) {
 				$(this).sync()
 			});
-			$wysiwyg.wysibb({
-				"traceTextarea": true
-			});
+			$wysiwyg.wysiwyg();
 		}
 	};
 	

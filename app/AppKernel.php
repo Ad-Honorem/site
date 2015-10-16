@@ -30,7 +30,6 @@ class AppKernel extends Kernel {
 				new ADH\NewsBundle\ADHNewsBundle(),
 				new ADH\SkeletonBundle\ADHSkeletonBundle(),
 				new ADH\UserBundle\ADHUserBundle(),
-				new ADH\WYSIWYGBundle\ADHWYSIWYGBundle(),
 		);
 		
 		if (in_array($this->getEnvironment(), array(

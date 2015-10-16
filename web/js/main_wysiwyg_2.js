@@ -1,40 +1,24 @@
-/*! WysiBB v1.5.1 2014-03-26 
-    Author: Vadim Dobroskok
- */
 if (typeof (WBBLANG)=="undefined") {WBBLANG = {};}
-WBBLANG['en'] = CURLANG = {
-	bold: "Bold",
-	italic: "Italic",
-	underline: "Underline",
-	strike: "Strike",
-	link: "Link",
-	img: "Insert image",
-	sup: "Superscript",
-	sub: "Subscript",
-	justifyleft: "Align left",
-	justifycenter: "Align center",
-	justifyright: "Align right",
-	table: "Insert table",
-	bullist: "• Unordered list",
-	numlist: "1. Ordered list",
-	quote: "Quote",
-	offtop: "Offtop",
+WBBLANG["fr"] = CURLANG = {
+	bold: "Gras",
+	italic: "Italique",
+	underline: "Souligné",
+	strike: "Barré",
+	link: "Lien",
+	img: "Image",
+	table: "Tableau",
+	bullist: "Liste simple",
+	numlist: "Liste numérique",
+	quote: "Citation",
 	code: "Code",
 	spoiler: "Spoiler",
-	fontcolor: "Font color",
-	fontsize: "Font size",
-	fontfamily: "Font family",
-	fs_verysmall: "Very small",
-	fs_small: "Small",
-	fs_normal: "Normal",
-	fs_big: "Big",
-	fs_verybig: "Very big",
-	smilebox: "Insert emoticon",
-	video: "Insert YouTube",
-	removeFormat:"Remove Format",
+	fontcolor: "Couleur",
+	smilebox: "Emoticone",
+	video: "Video YouTube",
+	removeFormat:"Supprimer le style",
 	
-	modal_link_title: "Insert link",
-	modal_link_text: "Display text",
+	modal_link_title: "Insérer un lien",
+	modal_link_text: "Texte à afficher",
 	modal_link_url: "URL",
 	modal_email_text: "Display email",
 	modal_email_url: "Email",
@@ -47,15 +31,15 @@ WBBLANG['en'] = CURLANG = {
 	modal_img_btn: "Choose file",
 	add_attach: "Add Attachment",
 	
-	modal_video_text: "Enter the URL of the video",
+	modal_video_text: "Entrer le lien de votre vidéo",
 	
 	close: "Close",
 	save: "Save",
 	cancel: "Cancel",
 	remove: "Delete",
 	
-	validation_err: "The entered data is invalid",
-	error_onupload: "Error during file upload",
+	validation_err: "Les informations que vous avez saisies sont invalides.",
+	error_onupload: "Erreur lors de l'upload.",
 	
 	fileupload_text1: "Drop file here",
 	fileupload_text2: "or",
@@ -76,10 +60,9 @@ WBBLANG['en'] = CURLANG = {
 	sm8: "Pain",
 	sm9: "Sick"
 };
-wbbdebug=true;
 (function($) {
 	'use strict';
-	$.wysibb = function(txtArea,settings) {
+	$.wysiwyg = function(txtArea,settings) {
 		$(txtArea).data("wbb",this);
 		
 		if (settings && settings.deflang && typeof(WBBLANG[settings.deflang])!="undefined") {CURLANG = WBBLANG[settings.deflang];}
@@ -92,7 +75,7 @@ wbbdebug=true;
 			onlyBBmode:			false,
 			themeName:			"default", 
 			bodyClass:			"",
-			lang:				"ru",
+			lang:				"fr",
 			tabInsert:			true,
 //			toolbar:			false,
 			//img upload config 
@@ -110,7 +93,7 @@ wbbdebug=true;
 			smileConversion:	true,
 
 			//END img upload config 
-			buttons: 			"bold,italic,underline,strike,sup,sub,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
+			buttons: 			"fontcolor,bold,italic,underline,strike,|,smilebox,img,video,link,|,bullist,numlist,|,quote",
 			allButtons: {
 				bold : {
 					title: CURLANG.bold,
@@ -150,22 +133,6 @@ wbbdebug=true;
 						'<s>{SELTEXT}</s>':"[s]{SELTEXT}[/s]"
 					}
 				},
-				sup : {
-					title: CURLANG.sup,
-					buttonHTML: '<span class="fonticon ve-tlb-sup1">\uE005</span>',
-					excmd: 'superscript',
-					transform : {
-						'<sup>{SELTEXT}</sup>':"[sup]{SELTEXT}[/sup]"
-					}
-				},
-				sub : {
-					title: CURLANG.sub,
-					buttonHTML: '<span class="fonticon ve-tlb-sub1">\uE004</span>',
-					excmd: 'subscript',
-					transform : {
-						'<sub>{SELTEXT}</sub>':"[sub]{SELTEXT}[/sub]"
-					}
-				},
 				link : {
 					title: CURLANG.link,
 					buttonHTML: '<span class="fonticon ve-tlb-link1">\uE007</span>',
@@ -183,7 +150,7 @@ wbbdebug=true;
 						]
 					},
 					transform : {
-						'<a href="{URL}">{SELTEXT}</a>':"[url={URL}]{SELTEXT}[/url]",
+						'<a href="{URL}">{SELTEXT}</a>':"[url=\"{URL}\"]{SELTEXT}[/url]",
 						'<a href="{URL}">{URL}</a>':"[url]{URL}[/url]"
 					}
 				},
@@ -215,8 +182,8 @@ wbbdebug=true;
 					buttonHTML: '<span class="fonticon ve-tlb-list1">\uE009</span>',
 					excmd: 'insertUnorderedList',
 					transform : {
-						'<ul>{SELTEXT}</ul>':"[list]{SELTEXT}[/list]",
-						'<li>{SELTEXT}</li>':"[*]{SELTEXT}[/*]"
+						'<ul>{SELTEXT}</ul>':"[ul]{SELTEXT}[/ul]",
+						'<li>{SELTEXT}</li>':"[li]{SELTEXT}[/li]"
 					}
 				},
 				numlist : {
@@ -224,8 +191,8 @@ wbbdebug=true;
 					buttonHTML: '<span class="fonticon ve-tlb-numlist1">\uE00a</span>',
 					excmd: 'insertOrderedList',
 					transform : {
-						'<ol>{SELTEXT}</ol>':"[list=1]{SELTEXT}[/list]",
-						'<li>{SELTEXT}</li>':"[*]{SELTEXT}[/*]"
+						'<ol>{SELTEXT}</ol>':"[ol]{SELTEXT}[/ol]",
+						'<li>{SELTEXT}</li>':"[li]{SELTEXT}[/li]"
 					}
 				},
 				quote : {
@@ -245,13 +212,6 @@ wbbdebug=true;
 					onlyClearText: true,
 					transform : {
 						'<code>{SELTEXT}</code>':"[code]{SELTEXT}[/code]"
-					}
-				},
-				offtop : {
-					title: CURLANG.offtop,
-					buttonText: 'offtop',
-					transform : {
-						'<span style="font-size:10px;color:#ccc">{SELTEXT}</span>':"[offtop]{SELTEXT}[/offtop]"
 					}
 				},
 				fontcolor: {
@@ -285,59 +245,10 @@ wbbdebug=true;
 					},
 					skipRules: true
 				},
-				fontsize: {
-					type: 'select',
-					title: CURLANG.fontsize,
-					options: "fs_verysmall,fs_small,fs_normal,fs_big,fs_verybig"
-				},
-				fontfamily: {
-					type: 'select',
-					title: CURLANG.fontfamily,
-					excmd: 'fontName',
-					valueBBname: "font",
-					options: [
-						{title: "Arial",exvalue: "Arial"},
-						{title: "Comic Sans MS",exvalue: "Comic Sans MS"},
-						{title: "Courier New",exvalue: "Courier New"},
-						{title: "Georgia",exvalue: "Georgia"},
-						{title: "Lucida Sans Unicode",exvalue: "Lucida Sans Unicode"},
-						{title: "Tahoma",exvalue: "Tahoma"},
-						{title: "Times New Roman",exvalue: "Times New Roman"},
-						{title: "Trebuchet MS",exvalue: "Trebuchet MS"},
-						{title: "Verdana",exvalue: "Verdana"}
-					],
-					transform: {
-						'<font face="{FONT}">{SELTEXT}</font>':'[font={FONT}]{SELTEXT}[/font]'
-					}
-				},
 				smilebox: {
 					type: 'smilebox',
 					title: CURLANG.smilebox,
 					buttonHTML: '<span class="fonticon ve-tlb-smilebox1">\uE00b</span>'
-				},
-				justifyleft: {
-					title: CURLANG.justifyleft,
-					buttonHTML: '<span class="fonticon ve-tlb-textleft1">\uE015</span>',
-					groupkey: 'align',
-					transform: {
-						'<p style="text-align:left">{SELTEXT}</p>': '[left]{SELTEXT}[/left]'
-					}
-				},
-				justifyright: {
-					title: CURLANG.justifyright,
-					buttonHTML: '<span class="fonticon ve-tlb-textright1">\uE016</span>',
-					groupkey: 'align',
-					transform: {
-						'<p style="text-align:right">{SELTEXT}</p>': '[right]{SELTEXT}[/right]'
-					}
-				},
-				justifycenter: {
-					title: CURLANG.justifycenter,
-					buttonHTML: '<span class="fonticon ve-tlb-textcenter1">\uE014</span>',
-					groupkey: 'align',
-					transform: {
-						'<p style="text-align:center">{SELTEXT}</p>': '[center]{SELTEXT}[/center]'
-					}
 				},
 				video: {
 					title: CURLANG.video,
@@ -374,57 +285,9 @@ wbbdebug=true;
 						}
 					},
 					transform: {
-						'<iframe src="http://www.youtube.com/embed/{SRC}" width="640" height="480" frameborder="0"></iframe>':'[video]{SRC}[/video]'
+						'<iframe src="http://www.youtube.com/embed/{SRC}" width="640" height="480" frameborder="0"></iframe>':'[youtube]{SRC}[/youtube]'
 					}
 				},
-				
-				//select options
-				fs_verysmall: {
-					title: CURLANG.fs_verysmall,
-					buttonText: "fs1",
-					excmd: 'fontSize',
-					exvalue: "1",
-					transform: {
-						'<font size="1">{SELTEXT}</font>':'[size=50]{SELTEXT}[/size]'
-					}
-				},
-				fs_small: {
-					title: CURLANG.fs_small,
-					buttonText: "fs2",
-					excmd: 'fontSize',
-					exvalue: "2",
-					transform: {
-						'<font size="2">{SELTEXT}</font>':'[size=85]{SELTEXT}[/size]'
-					}
-				},
-				fs_normal: {
-					title: CURLANG.fs_normal,
-					buttonText: "fs3",
-					excmd: 'fontSize',
-					exvalue: "3",
-					transform: {
-						'<font size="3">{SELTEXT}</font>':'[size=100]{SELTEXT}[/size]'
-					}
-				},
-				fs_big: {
-					title: CURLANG.fs_big,
-					buttonText: "fs4",
-					excmd: 'fontSize',
-					exvalue: "4",
-					transform: {
-						'<font size="4">{SELTEXT}</font>':'[size=150]{SELTEXT}[/size]'
-					}
-				},
-				fs_verybig: {
-					title: CURLANG.fs_verybig,
-					buttonText: "fs5",
-					excmd: 'fontSize',
-					exvalue: "6",
-					transform: {
-						'<font size="6">{SELTEXT}</font>':'[size=200]{SELTEXT}[/size]'
-					}
-				},
-				
 				removeformat: {
 					title: CURLANG.removeFormat,
 					buttonHTML: '<span class="fonticon ve-tlb-removeformat1">\uE00f</span>',
@@ -447,32 +310,7 @@ wbbdebug=true;
 			attrWrap: ['src','color','href'] //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
 		}
 		
-		//FIX for Opera. Wait while iframe loaded
 		this.inited=this.options.onlyBBmode;
-		
-		//init css prefix, if not set
-		if (!this.options.themePrefix) {
-			$('link').each($.proxy(function(idx, el) {
-				var sriptMatch = $(el).get(0).href.match(/(.*\/)(.*)\/wbbtheme\.css.*$/);
-				if (sriptMatch !== null) {
-					this.options.themeName = sriptMatch[2];
-					this.options.themePrefix = sriptMatch[1];
-				}
-			},this));
-		}
-		
-		//check for preset
-		if (typeof(WBBPRESET)!="undefined") {
-			if (WBBPRESET.allButtons) {
-				//clear transform
-				$.each(WBBPRESET.allButtons,$.proxy(function(k,v) {
-					if (v.transform && this.options.allButtons[k]) {
-						delete this.options.allButtons[k].transform;
-					}
-				},this));
-			}
-			$.extend(true,this.options,WBBPRESET);
-		} 
 		
 		if (settings && settings.allButtons) {
 			$.each(settings.allButtons,$.proxy(function(k,v) {
@@ -485,17 +323,11 @@ wbbdebug=true;
 		this.init();
 	}
 	
-	$.wysibb.prototype = {
+	$.wysiwyg.prototype = {
 		lastid : 1,
 		init:	function() {
-			$.log("Init",this);
-			//check for mobile
 			this.isMobile = function(a) {(/android|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|meego.+mobile|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a))}(navigator.userAgent||navigator.vendor||window.opera);
-			
-			//use bbmode on mobile devices
-			//this.isMobile = true; //TEMP
 			if (this.options.onlyBBmode===true) {this.options.bbmode=true;}
-			//create array of controls, for queryState
 			this.controllers = [];
 			
 			//convert button string to array
@@ -521,32 +353,23 @@ wbbdebug=true;
 				})
 			}
 			
+			// constantly sync
+			this.$editor.on("focus blur keyup paste input", $.proxy(function() {
+				this.sync();
+			}, this));
+			
+			// sync on submit event
 			this.$txtArea.parents("form").bind("submit",$.proxy(function() {
 				this.sync();
 				return true;
-			},this)); 
-			
-			
-			//phpbb2
-			this.$txtArea.parents("form").find("input[id*='preview'],input[id*='submit'],input[class*='preview'],input[class*='submit'],input[name*='preview'],input[name*='submit']").bind("mousedown",$.proxy(function() {
-				this.sync();
-				setTimeout($.proxy(function() {
-					if (this.options.bbmode===false) {
-						this.$txtArea.removeAttr("wbbsync").val("");
-					}
-				},this),1000);
-			},this));
-			//end phpbb2
+			}, this));
 			
 			if (this.options.initCallback) {
 				this.options.initCallback.call(this);
 			}
-			
-			$.log(this);
-			
 		},
 		initTransforms: function() {
-			$.log("Create rules for transform HTML=>BB");
+			
 			var o = this.options;
 			//need to check for active buttons
 			if (!o.rules) {o.rules={};}
@@ -579,16 +402,6 @@ wbbdebug=true;
 				if (ob.transform && ob.skipRules!==true) {
 					var obtr = $.extend({},ob.transform);
 					
-					/* if (ob.addWrap) {
-						//addWrap
-						$.log("needWrap");
-						for (var bhtml in obtr) {
-							var bbcode = ob.transform[bhtml];
-							var newhtml = '<span wbb="'+btnlist[bidx]+'">'+bhtml+'</span>';
-							obtr[newhtml] = bbcode;
-						}
-					} */
-					
 					for (var bhtml in obtr) {
 						var orightml = bhtml;
 						var bbcode = obtr[bhtml];
@@ -611,10 +424,10 @@ wbbdebug=true;
 							//check if current rootSelector is exist, create unique selector for each transform (1.2.2)
 							if (rootSelector=="div" || typeof(o.rules[rootSelector])!="undefined") {
 								//create unique selector
-								$.log("create unique selector: "+rootSelector);
+								
 								this.setUID($bel.children());
 								rootSelector = this.filterByNode($bel.children());
-								$.log("New rootSelector: "+rootSelector);
+								
 								//replace transform with unique selector
 								var nhtml2 = $bel.html();
 								nhtml2 = this.unwrapAttrs(nhtml2);
@@ -773,13 +586,9 @@ wbbdebug=true;
 		
 		//BUILD
 		build: function() {
-			$.log("Build editor");
-			
-			//this.$editor = $('<div class="wysibb">');
-			this.$editor = $('<div>').addClass("wysibb");
-			
+			this.$editor = $('<div>').addClass("wysiwyg");
 			if (this.isMobile) {
-				this.$editor.addClass("wysibb-mobile");
+				this.$editor.addClass("wysiwyg-mobile");
 			}
 			
 			//set direction if defined
@@ -788,16 +597,16 @@ wbbdebug=true;
 			this.$editor.insertAfter(this.txtArea).append(this.txtArea);
 			
 			this.startHeight = this.$txtArea.outerHeight();
-			this.$txtArea.addClass("wysibb-texarea");
+			this.$txtArea.addClass("wysiwyg-texarea");
 			this.buildToolbar();
 			//Build iframe if needed
-			this.$txtArea.wrap('<div class="wysibb-text">');
+			this.$txtArea.wrap('<div class="wysiwyg-text">');
 			
 			if (this.options.onlyBBmode===false) {
 				var height = this.options.minheight || this.$txtArea.outerHeight();
 				var maxheight = this.options.resize_maxheight;
 				var mheight = (this.options.autoresize===true) ? this.options.resize_maxheight:height;
-				this.$body = $(this.strf('<div class="wysibb-text-editor" style="max-height:{maxheight}px;min-height:{height}px"></div>',{maxheight:mheight,height:height})).insertAfter(this.$txtArea);
+				this.$body = $(this.strf('<div class="wysiwyg-text-editor" style="max-height:{maxheight}px;min-height:{height}px"></div>',{maxheight:mheight,height:height})).insertAfter(this.$txtArea);
 				this.body = this.$body[0];
 				this.$txtArea.hide();
 				
@@ -805,9 +614,9 @@ wbbdebug=true;
 					this.$toolbar.css("max-height",height);
 				}
 				
-				$.log("WysiBB loaded");
 				
-				this.$body.addClass("wysibb-body").addClass(this.options.bodyClass);
+				
+				this.$body.addClass("wysiwyg-body").addClass(this.options.bodyClass);
 				
 				//set direction if defined
 				if (this.options.direction) {this.$body.css("direction",this.options.direction)}
@@ -821,10 +630,11 @@ wbbdebug=true;
 						document.execCommand('StyleWithCSS', false, false);
 						//document.designMode = "on";
 						this.$body.append("<span></span>");
-					}catch(e) {}
+					} catch(e) {
+					}
 				}else{
 					//use onlybbmode
-					this.options.onlyBBmode=this.options.bbmode=true;
+					this.options.onlyBBmode = this.options.bbmode=true;
 				}
 				
 				//check for exist content in textarea
@@ -850,7 +660,7 @@ wbbdebug=true;
 									this.body.focus();
 
 									if (this.cleartext) {
-										$.log("Check if paste to clearText Block");
+										
 										if (this.isInClearTextBlock()) {
 											rdata = this.toBB(rdata).replace(/\n/g,"<br/>").replace(/\s{3}/g,'<span class="wbbtab"></span>');
 										}
@@ -921,9 +731,9 @@ wbbdebug=true;
 			}
 			
 			
-			//this.$editor.append('<span class="powered">Powered by <a href="http://www.wysibb.com" target="_blank">WysiBB<a/></span>');
+			// this.$editor.append('<span class="powered">Powered by <a href="http://www.wysiwyg.com" target="_blank">WysiBB<a/></span>');
 			
-			//add event listeners to textarea 
+			// add event listeners to textarea 
 			this.$txtArea.bind('mouseup keyup',$.proxy(function() {
 				clearTimeout(this.uitimer);
 				this.uitimer = setTimeout($.proxy(this.updateUI,this),100);
@@ -937,8 +747,8 @@ wbbdebug=true;
 		buildToolbar: function() {
 			if (this.options.toolbar === false) {return false;}
 			
-			//this.$toolbar = $('<div class="wysibb-toolbar">').prependTo(this.$editor);
-			this.$toolbar = $('<div>').addClass("wysibb-toolbar").prependTo(this.$editor);
+			//this.$toolbar = $('<div class="wysiwyg-toolbar">').prependTo(this.$editor);
+			this.$toolbar = $('<div>').addClass("wysiwyg-toolbar").prependTo(this.$editor);
 			
 			var $btnContainer;
 			$.each(this.options.buttons,$.proxy(function(i,bn) {
@@ -947,7 +757,7 @@ wbbdebug=true;
 					if (bn=="-") {
 						this.$toolbar.append("<div>");
 					}
-					$btnContainer = $('<div class="wysibb-toolbar-container">').appendTo(this.$toolbar);
+					$btnContainer = $('<div class="wysiwyg-toolbar-container">').appendTo(this.$toolbar);
 				}
 				if (opt) {
 					if (opt.type=="colorpicker") {
@@ -968,11 +778,11 @@ wbbdebug=true;
 			this.$toolbar.find(".btn-tooltip").hover(function () {$(this).parent().css("overflow","hidden")},function() {$(this).parent().css("overflow","visible")});
 			
 			//build bbcode switch button
-			//var $bbsw = $('<div class="wysibb-toolbar-container modeSwitch"><div class="wysibb-toolbar-btn" unselectable="on"><span class="btn-inner ve-tlb-bbcode" unselectable="on"></span></div></div>').appendTo(this.$toolbar);
-			var $bbsw = $(document.createElement('div')).addClass("wysibb-toolbar-container modeSwitch").html('<div class="wysibb-toolbar-btn mswitch" unselectable="on"><span class="btn-inner modesw" unselectable="on">[bbcode]</span></div>').appendTo(this.$toolbar);
-			if (this.options.bbmode==true) {$bbsw.children(".wysibb-toolbar-btn").addClass("on");}
+			//var $bbsw = $('<div class="wysiwyg-toolbar-container modeSwitch"><div class="wysiwyg-toolbar-btn" unselectable="on"><span class="btn-inner ve-tlb-bbcode" unselectable="on"></span></div></div>').appendTo(this.$toolbar);
+			var $bbsw = $(document.createElement('div')).addClass("wysiwyg-toolbar-container modeSwitch").html('<div class="wysiwyg-toolbar-btn mswitch" unselectable="on"><span class="btn-inner modesw" unselectable="on">[bbcode]</span></div>').appendTo(this.$toolbar);
+			if (this.options.bbmode==true) {$bbsw.children(".wysiwyg-toolbar-btn").addClass("on");}
 			if (this.options.onlyBBmode===false) {
-				$bbsw.children(".wysibb-toolbar-btn").click($.proxy(function(e) {
+				$bbsw.children(".wysiwyg-toolbar-btn").click($.proxy(function(e) {
 					$(e.currentTarget).toggleClass("on");
 					this.modeSwitch();
 				},this));
@@ -984,7 +794,7 @@ wbbdebug=true;
 			}
 			var btnHTML = (opt.buttonHTML) ? $(this.strf(opt.buttonHTML,this.options)).addClass("btn-inner") : this.strf('<span class="btn-inner btn-text">{text}</span>',{text:opt.buttonText.replace(/</g,"&lt;")});
 			var hotkey = (this.options.hotkeys===true && this.options.showHotkeys===true && opt.hotkey) ? (' <span class="tthotkey">['+opt.hotkey+']</span>'):""
-			var $btn = $('<div class="wysibb-toolbar-btn wbb-'+bn+'">').appendTo(container).append(btnHTML).append(this.strf('<span class="btn-tooltip">{title}<ins/>{hotkey}</span>',{title:opt.title,hotkey:hotkey}));
+			var $btn = $('<div class="wysiwyg-toolbar-btn wbb-'+bn+'">').appendTo(container).append(btnHTML).append(this.strf('<span class="btn-tooltip">{title}<ins/>{hotkey}</span>',{title:opt.title,hotkey:hotkey}));
 			
 			//attach events
 			this.controllers.push($btn);
@@ -998,7 +808,7 @@ wbbdebug=true;
 			},this));
 		},
 		buildColorpicker: function(container,bn,opt) {
-			var $btn = $('<div class="wysibb-toolbar-btn wbb-dropdown wbb-cp">').appendTo(container).append('<div class="ve-tlb-colorpick"><span class="fonticon">\uE010</span><span class="cp-line"></span></div><ins class="fonticon ar">\uE011</ins>').append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));
+			var $btn = $('<div class="wysiwyg-toolbar-btn wbb-dropdown wbb-cp">').appendTo(container).append('<div class="ve-tlb-colorpick"><span class="fonticon">\uE010</span><span class="cp-line"></span></div><ins class="fonticon ar">\uE011</ins>').append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));
 			var $cpline = $btn.find(".cp-line");
 			
 			var $dropblock = $('<div class="wbb-list">').appendTo($btn); 
@@ -1047,7 +857,7 @@ wbbdebug=true;
 			});
 		},
 		buildTablepicker: function(container,bn,opt) {
-			var $btn = $('<div class="wysibb-toolbar-btn wbb-dropdown wbb-tbl">').appendTo(container).append('<span class="btn-inner fonticon ve-tlb-table1">\uE00e</span><ins class="fonticon ar">\uE011</ins>').append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));
+			var $btn = $('<div class="wysiwyg-toolbar-btn wbb-dropdown wbb-tbl">').appendTo(container).append('<span class="btn-inner fonticon ve-tlb-table1">\uE00e</span><ins class="fonticon ar">\uE011</ins>').append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));
 			
 			var $listblock = $('<div class="wbb-list">').appendTo($btn);
 			var $dropblock = $('<div>').css({"position":"relative","box-sizing":"border-box"}).appendTo($listblock);
@@ -1086,7 +896,7 @@ wbbdebug=true;
 			
 		},
 		buildSelect: function(container,bn,opt) {
-			var $btn = $('<div class="wysibb-toolbar-btn wbb-select wbb-'+bn+'">').appendTo(container).append(this.strf('<span class="val">{title}</span><ins class="fonticon sar">\uE012</ins>',opt)).append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));  
+			var $btn = $('<div class="wysiwyg-toolbar-btn wbb-select wbb-'+bn+'">').appendTo(container).append(this.strf('<span class="val">{title}</span><ins class="fonticon sar">\uE012</ins>',opt)).append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));  
 			var $sblock = $('<div class="wbb-list">').appendTo($btn);
 			var $sval = $btn.find("span.val");
 			
@@ -1097,7 +907,7 @@ wbbdebug=true;
 				if (typeof(oname)=="string") {
 					var option = this.options.allButtons[oname];
 					if (option) {
-						//$.log("create: "+oname); 
+						// 
 						if (option.html) {
 							$('<span>').addClass("option").attr("oid",oname).attr("cmdvalue",option.exvalue).appendTo($sblock).append(this.strf(option.html,{seltext:option.title}));
 						}else{
@@ -1181,7 +991,7 @@ wbbdebug=true;
 		buildSmilebox: function(container,bn,opt) {
 			if (this.options.smileList && this.options.smileList.length>0) {
 				var $btnHTML = $(this.strf(opt.buttonHTML,opt)).addClass("btn-inner");
-				var $btn = $('<div class="wysibb-toolbar-btn wbb-smilebox wbb-'+bn+'">').appendTo(container).append($btnHTML).append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));  
+				var $btn = $('<div class="wysiwyg-toolbar-btn wbb-smilebox wbb-'+bn+'">').appendTo(container).append($btnHTML).append(this.strf('<span class="btn-tooltip">{title}<ins/></span>',{title:opt.title}));  
 				var $sblock = $('<div class="wbb-list">').appendTo($btn);
 				if ($.isArray(this.options.smileList)) {
 					$.each(this.options.smileList,$.proxy(function(i,sm){
@@ -1213,7 +1023,7 @@ wbbdebug=true;
 		initModal: function() {
 			this.$modal=$("#wbbmodal");
 			if (this.$modal.size()==0) {
-				$.log("Init modal");
+				
 				this.$modal = $('<div>').attr("id","wbbmodal").prependTo(document.body)
 					.html('<div class="wbbm"><div class="wbbm-title"><span class="wbbm-title-text"></span><span class="wbbclose" title="'+CURLANG.close+'">×</span></div><div class="wbbm-content"></div><div class="wbbm-bottom"><button id="wbbm-submit" class="wbb-button">'+CURLANG.save+'</button><button id="wbbm-cancel" class="wbb-cancel-button">'+CURLANG.cancel+'</button><button id="wbbm-remove" class="wbb-remove-button">'+CURLANG.remove+'</button></div></div>').hide();
 				
@@ -1228,7 +1038,7 @@ wbbdebug=true;
 			}
 		},
 		initHotkeys: function() {
-			$.log("initHotkeys");
+			
 			this.hotkeys=[];
 			var klist = "0123456789       abcdefghijklmnopqrstuvwxyz";
 			$.each(this.options.allButtons,$.proxy(function(cmd,opt) {
@@ -1244,7 +1054,7 @@ wbbdebug=true;
 								case "alt": {metasum+=7;break;}
 							}
 						})
-						//$.log("metasum: "+metasum+" key: "+key+" code: "+(klist.indexOf(key)+48));
+						//
 						if (metasum>0) {
 							if (!this.hotkeys["m"+metasum]) {this.hotkeys["m"+metasum]=[];}
 							this.hotkeys["m"+metasum]["k"+(klist.indexOf(key)+48)]=cmd;
@@ -1266,7 +1076,7 @@ wbbdebug=true;
 		
 		//COgdfMMAND FUNCTIONS
 		execCommand: function(command,value) {
-			$.log("execCommand: "+command);
+			
 			var opt = this.options.allButtons[command];
 			if (opt.en!==true) {return false;}
 			var queryState = this.queryState(command,value);
@@ -1279,7 +1089,7 @@ wbbdebug=true;
 			if (opt.excmd) {
 				//use NativeCommand
 				if (this.options.bbmode) {
-					$.log("Native command in bbmode: "+command);
+					
 					if (queryState && opt.subInsert!=true) {
 						//remove bbcode
 						this.wbbRemoveCallback(command,value);
@@ -1357,7 +1167,7 @@ wbbdebug=true;
 			}
 		},
 		wbbExecCommand: function(command,value,queryState) { //default command for custom bbcodes
-			$.log("wbbExecCommand");
+			
 			var opt = this.options.allButtons[command];
 			if (opt) {
 				if (opt.modal) {
@@ -1398,7 +1208,7 @@ wbbdebug=true;
 		},
 		wbbInsertCallback: function(command,paramobj) {
 			if (typeof(paramobj)!="object") {paramobj={}};
-			$.log("wbbInsertCallback: "+command);
+			
 			var data = this.getCodeByCommand(command,paramobj);
 			this.insertAtCursor(data);
 			
@@ -1410,7 +1220,7 @@ wbbdebug=true;
 			}
 		},
 		wbbRemoveCallback: function(command,clear) {
-			$.log("wbbRemoveCallback: "+command);
+			
 			var opt = this.options.allButtons[command];
 			if (this.options.bbmode) {
 				//bbmode
@@ -1432,7 +1242,7 @@ wbbdebug=true;
 			}else{
 				var node = this.getSelectNode();
 				$.each(opt.rootSelector,$.proxy(function(i,s) {
-					//$.log("RS: "+s);
+					//
 					var root = this.isContain(node,s);
 					if (!root) {return true;}
 					var $root = $(root);
@@ -1506,7 +1316,7 @@ wbbdebug=true;
 			}
 		},
 		execNativeCommand: function(cmd,param) { 
-			//$.log("execNativeCommand: '"+cmd+"' : "+param); 
+			// 
 			this.body.focus(); //set focus to frame body
 			if (cmd=="insertHTML" && !window.getSelection) { //IE does't support insertHTML
 				var r = (this.lastRange) ? this.lastRange:document.selection.createRange(); //IE 7,8 range lost fix
@@ -1530,7 +1340,7 @@ wbbdebug=true;
 			}else{
 				if (typeof param == "undefined") {param=false;}
 				if (this.lastRange) {
-					$.log("Last range select");
+					
 					this.selectLastRange()
 				}
 				document.execCommand(cmd, false, param);
@@ -1597,7 +1407,7 @@ wbbdebug=true;
 			if (!params["seltext"]) {
 				//get selected text
 				params["seltext"] = this.getSelectText(false);
-				//$.log("seltext: '"+params["seltext"]+"'");
+				//
 				if (params["seltext"]=="") {params["seltext"]="\uFEFF";}
 				else{
 					//clear selection from current command tags
@@ -1814,7 +1624,7 @@ wbbdebug=true;
 			}
 		},
 		setBodyFocus: function() {
-			$.log("Set focus to WysiBB editor");
+			
 			if (this.options.bbmode) {
 				if (!this.$txtArea.is(":focus")) {
 					this.$txtArea.focus();
@@ -1837,14 +1647,14 @@ wbbdebug=true;
 			var attributes = this.getAttributeList($n.get(0));
 			$.each(attributes, $.proxy(function(i, item) {
 				var v = $n.attr(item);
-				/* $.log("v: "+v);
+				/* 
 				if ($.inArray(item,this.options.attrWrap)!=-1) {
 					item = '_'+item;
 				} */
-				//$.log(item);
+				//
 				if (item.substr(0,1)=="_") {item=item.substr(1,item.length)}
 				if (v && !v.match(/\{.*?\}/)) {
-					//$.log("I1: "+item);
+					//
 					if (item=="style") {
 						var v = $n.attr(item);
 						var va = v.split(";");
@@ -1857,7 +1667,7 @@ wbbdebug=true;
 						filter+='['+item+'="'+v+'"]';
 					}
 				}else if (v && item=="style") {
-					//$.log("I2: "+item);
+					//
 					var vf = v.substr(0,v.indexOf("{"));
 					if (vf && vf!="") {
 						var v = v.substr(0,v.indexOf("{"));
@@ -1868,7 +1678,7 @@ wbbdebug=true;
 						//filter+='['+item+'*="'+v.substr(0,v.indexOf("{"))+'"]';
 					}
 				}else{ //1.2.2
-					//$.log("I3: "+item);
+					//
 					filter+='['+item+']';
 				}
 			},this));
@@ -1953,8 +1763,8 @@ wbbdebug=true;
 								}
 								bbcode = bbcode.replace(/\{(.*?)(\[.*?\])*\}/g,$.proxy(function(str,s,vrgx) {
 									var c = crules[s.toLowerCase()];
-									//if (typeof(c)=="undefined") {$.log("Param: {"+s+"} not found in HTML representation.");skip=true;return s;}
-									if (typeof(c)=="undefined") {$.log("Param: {"+s+"} not found in HTML representation.");skip=true;}
+									//if (typeof(c)=="undefined") {}
+									if (typeof(c)=="undefined") {}
 									var $cel = (c.sel) ? $(el).find(c.sel):$(el);
 									if (c.attr && !$cel.attr(c.attr)) {skip=true;return s;} //skip if needed attribute not present, maybe other bbcode
 									var cont = (c.attr) ? $cel.attr(c.attr):$cel.html();
@@ -2175,7 +1985,7 @@ wbbdebug=true;
 			}
 		},
 		isContain: function(node,sel) {
-			while (node && !$(node).hasClass("wysibb")) {
+			while (node && !$(node).hasClass("wysiwyg")) {
 				if ($(node).is(sel)) {return node};
 				if (node) {node = node.parentNode;}
 				else{return null;}
@@ -2372,10 +2182,10 @@ wbbdebug=true;
 				}
 			},this));
 			$block.find("*[wbbkeep]").removeAttr("wbbkeep").removeAttr("style");
-			$.log($block.html());
-			//$.log("BBCODE: "+this.toBB($block.clone(true)));
+			
+			//
 			$block.html(this.getHTML(this.toBB($block),true));
-			$.log($block.html());
+			
 			
 			//OLD
 			/* $.each(this.options.rules,$.proxy(function(s,bb) {
@@ -2413,7 +2223,7 @@ wbbdebug=true;
 		},
 		destroy: function() {
 			this.$editor.replaceWith(this.$txtArea);
-			this.$txtArea.removeClass("wysibb-texarea").show();
+			this.$txtArea.removeClass("wysiwyg-texarea").show();
 			this.$modal.remove();
 			this.$txtArea.data("wbb",null);
 		},
@@ -2436,25 +2246,25 @@ wbbdebug=true;
 			}
 		},
 		traceTextareaEvent: function(e) {
-			if ($(e.target).closest("div.wysibb").size()==0) {
-				if ($(document.activeElement).is("div.wysibb-body")) {
+			if ($(e.target).closest("div.wysiwyg").size()==0) {
+				if ($(document.activeElement).is("div.wysiwyg-body")) {
 					this.saveRange();
 				}
 				setTimeout($.proxy(function() {
 					var data = this.$txtArea.val();
-					if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysibb").size()==0 && !this.$txtArea.attr("wbbsync")) {
+					if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysiwyg").size()==0 && !this.$txtArea.attr("wbbsync")) {
 						this.selectLastRange();
 						this.insertAtCursor(this.getHTML(data,true));
 						this.$txtArea.val("");
 					}
-					if ($(document.activeElement).is("div.wysibb-body")) {
+					if ($(document.activeElement).is("div.wysiwyg-body")) {
 						this.lastRange=false;
 					}
 				},this),100);
 			}
 		},
 		txtAreaInitContent: function() {
-			//$.log(this.txtArea.value);
+			//
 			this.$body.html(this.getHTML(this.txtArea.value,true));
 		},
 		getValidationRGX: function(s) {
@@ -2513,9 +2323,9 @@ wbbdebug=true;
 		},
 		disNonActiveButtons: function() {
 			if (this.isInClearTextBlock()) {
-				this.$toolbar.find(".wysibb-toolbar-btn:not(.on,.mswitch)").addClass("dis");
+				this.$toolbar.find(".wysiwyg-toolbar-btn:not(.on,.mswitch)").addClass("dis");
 			}else{
-				this.$toolbar.find(".wysibb-toolbar-btn.dis").removeClass("dis");
+				this.$toolbar.find(".wysiwyg-toolbar-btn.dis").removeClass("dis");
 			}
 		},
 		setCursorByEl: function(el) {
@@ -2532,14 +2342,14 @@ wbbdebug=true;
 			var $e = $(e.target);
 			if (this.hasWrapedImage && ($e.closest(".wbb-img,#wbbmodal").size()==0 || $e.hasClass("wbb-cancel-button"))) {
 				this.$body.find(".imgWrap ").each(function() {
-					$.log("Removed imgWrap block");
+					
 					$(this).replaceWith($(this).find("img"));
 				})
 				this.hasWrapedImage = false;
 				this.updateUI();
 			}
 			
-			if ($e.is("img") && $e.closest(".wysibb-body").size()>0) {
+			if ($e.is("img") && $e.closest(".wysiwyg-body").size()>0) {
 				$e.wrap("<span class='imgWrap'></span>");
 				this.hasWrapedImage = $e;
 				this.$body.focus();
@@ -2549,7 +2359,7 @@ wbbdebug=true;
 		
 		//MODAL WINDOW
 		showModal: function(cmd,opt,queryState) {
-			$.log("showModal: "+cmd);
+			
 			this.saveRange();
 			var $cont = this.$modal.find(".wbbm-content").html("");
 			var $wbbm = this.$modal.find(".wbbm").removeClass("hastabs");
@@ -2636,7 +2446,7 @@ wbbdebug=true;
 					params[pname]=pval;
 				},this));
 				if (valid) {
-					$.log("Last range: "+this.lastRange);
+					
 					this.selectLastRange();
 					//insert callback
 					if (queryState) {
@@ -2725,7 +2535,7 @@ wbbdebug=true;
 		 
 		//imgUploader
 		imgLoadModal: function() {
-			$.log("imgLoadModal");
+			
 			if (this.options.imgupload===true) {
 				this.$modal.find("#imguploader").dragfileupload({
 					url: this.strf(this.options.img_uploadurl,this.options),
@@ -2757,16 +2567,16 @@ wbbdebug=true;
 			}
 		},
 		imgSubmitModal: function() {
-			$.log("imgSubmitModal");
+			
 		},
 		//DEBUG
 		printObjectInIE: function(obj) {
 			try{
-			$.log(JSON.stringify(obj));
+			
 			}catch(e) {}
 		},
 		checkFilter: function(node,filter) {
-			$.log("node: "+$(node).get(0).outerHTML+" filter: "+filter+" res: "+$(node).is(filter.toLowerCase()));
+			
 		},
 		debug: function(msg) {
 			if (this.options.debug===true) {
@@ -2793,21 +2603,12 @@ wbbdebug=true;
 			}
 		}
 	}
-	
-	$.log = function(msg) {
-		if (typeof(wbbdebug)!="undefined" && wbbdebug===true) {
-			if (typeof(console)!="undefined") {
-				console.log(msg);
-			}else{
-				$("#exlog").append('<p>'+msg+'</p>');  
-			}
-		}
-	}
-	$.fn.wysibb = function(settings) {
+
+	$.fn.wysiwyg = function(settings) {
 		return this.each(function() {
 			var data = $(this).data("wbb");
 			if (!data) {
-				new $.wysibb(this, settings);
+				new $.wysiwyg(this, settings);
 			}
 		});
 	}

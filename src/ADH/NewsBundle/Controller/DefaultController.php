@@ -20,7 +20,7 @@ class DefaultController extends Controller {
 	/**
 	 * page de vue d'une équipe
 	 *
-	 * @Route("/list/{page}", name="adh_news_view_default", defaults={"page": 1}, requirements={"page": "[0-9]+"})
+	 * @Route("/list/{page}", name="adh_news_default", defaults={"page": 1}, requirements={"page": "[0-9]+"})
 	 * @Method({"GET", "POST"})
 	 * 
 	 * @param Request $request 

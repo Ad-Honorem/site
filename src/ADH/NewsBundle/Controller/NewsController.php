@@ -16,7 +16,21 @@ use Symfony\Component\HttpFoundation\Request;
  * @Route("/")
  */
 class NewsController extends Controller {
-
+	/**
+	 * page de vue d'une News
+	 *
+	 * @Route("/view/{news}", name="adh_news_news_view")
+	 * @Method({"GET"})
+	 *
+	 * @param Request $request
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function viewNewsAction(Request $request, News $news) {
+		return ($this->render("ADHNewsBundle:News:view.html.twig", array(
+				"news" => $news
+		)));
+	}
+	
 	/**
 	 * page d'ajout d'une news
 	 *
@@ -27,20 +41,22 @@ class NewsController extends Controller {
 	 * @param Request $request 
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function addNewsAction(Request $request) {
+	public function addAction(Request $request) {
 		$news = new News();
 		$form = $this->createForm(new NewsType(), $news);
 
 		if ($request->isMethod("POST")) {
 			$form->handleRequest($request);
 			if ($form->isValid()) {
-				$em = $this->getDoctrine()->getManager();
+				$entityManager = $this->getDoctrine()->getManager();
 				
 				$news->setAuteur($this->getUser());
-				$em->persist($news);
-				$em->flush();
+				$entityManager->persist($news);
+				$entityManager->flush();
 				$this->addFlash("success", "Votre news a bien été ajoutée.");
-				return ($this->redirect($this->generateUrl("adh_news_view_default")));
+				return ($this->redirectToRoute("adh_news_news_view", array(
+						"news" => $news->getId()
+				)));
 			}
 		}
 
@@ -65,13 +81,15 @@ class NewsController extends Controller {
 		if ($request->isMethod("POST")) {
 			$form->handleRequest($request);
 			if ($form->isValid()) {
-				$em = $this->getDoctrine()->getManager();
+				$entityManager = $this->getDoctrine()->getManager();
 				
 				$news->setEditeur($this->getUser());
-				$news->setEditiondate(new \DateTime);
-				$em->flush();
+				$news->setEditiondate(new \DateTime());
+				$entityManager->flush();
 				$this->addFlash("success", "Votre news a bien été éditée.");
-				return ($this->redirect($this->generateUrl("adh_news_view_default")));
+				return ($this->redirectToRoute("adh_news_news_view", array(
+						"news" => $news->getId()
+				)));
 			}
 		}
 
@@ -84,13 +102,13 @@ class NewsController extends Controller {
 	 * page de changement d'état d'une News
 	 *
 	 * @Security("has_role('ROLE_ADMIN')")
-	 * @Route("/etat/{news}", name="adh_news_etat")
+	 * @Route("/state/{news}", name="adh_news_etat")
 	 * @Method({"GET","POST"})
 	 *
 	 * @param Request $request 
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function etatNewsAction(Request $request, News $news) {
+	public function stateAction(Request $request, News $news) {
 		if (!($news->getEtat() == 0 && ($news->getAuteur() != $this->getUser()))) {
 			$form = $this->createForm(new EtatNewsType($this->getUser()), $news);
 			
@@ -108,7 +126,7 @@ class NewsController extends Controller {
 					}
 					$this->getDoctrine()->getManager()->flush();
 					$this->addFlash("success", "L'état de la news a bien été mis à jour.");
-					return ($this->redirect($this->generateUrl("adh_news_view_default")));
+					return ($this->redirect($this->generateUrl("adh_news_default")));
 				}
 			}
 			return ($this->render("ADHNewsBundle:News:etat.html.twig", array(
@@ -117,22 +135,7 @@ class NewsController extends Controller {
 			)));
 		}
 		$this->addFlash("danger", "Cette news n'est pas encore prête a être publiée.");
-		return ($this->redirect($this->generateUrl("adh_news_view_default")));
-	}
-
-	/**
-	 * page de vue d'une News
-	 *
-	 * @Route("/view/{news}", name="adh_news_view")
-	 * @Method({"GET"})
-	 *
-	 * @param Request $request 
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function viewNewsAction(Request $request, News $news) {
-		return ($this->render("ADHNewsBundle:News:view.html.twig", array(
-				"news" => $news
-		)));
+		return ($this->redirect($this->generateUrl("adh_news_default")));
 	}
 
 	/**
@@ -156,7 +159,7 @@ class NewsController extends Controller {
 				$em->remove($news);
 				$em->flush();
 				$this->addFlash("success", "Votre news a bien été supprimée.");
-				return ($this->redirect($this->generateUrl("adh_news_view_default")));
+				return ($this->redirect($this->generateUrl("adh_news_default")));
 			}
 		}
 

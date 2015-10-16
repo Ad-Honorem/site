@@ -4,19 +4,19 @@
 	<h4>
 		{% if news.hasCategory() %}
 			<span class="category">
-				[ <a href="{{ path("adh_news_view_default", { (category_field): news.category.id }) }}" title="Voir toute les news de cette catégorie">{{ news.category.nom|capitalize }}</a> ]
+				[ <a href="{{ path("adh_news_default", { (category_field): news.category.id }) }}" title="Voir toute les news de cette catégorie">{{ news.category.nom|capitalize }}</a> ]
 			</span>
 		{% endif %}
 		{{ news.titre }}
 		{% if link %}
-			<a href="{{ path("adh_news_view", { "news": news.id }) }}" class="news-link" title="Voir la news"><span class="glyphicon glyphicon-eye-open"></span></a>
+			<a href="{{ path("adh_news_news_view", { "news": news.id }) }}" class="news-link" title="Voir la news"><span class="glyphicon glyphicon-eye-open"></span></a>
 		{% endif %}
 	</h4>
 	<div class="{% if more %}read-more{% endif %}">
 		{{ news.texte|bbcode_filter() }}
 	</div>
 	{% if more %}
-		<a href="{{ path("adh_news_view", { "news": news.id }) }}" class="read-more-link" read-more-target="#{{ id }} .read-more">Lire la suite...</a>
+		<a href="{{ path("adh_news_news_view", { "news": news.id }) }}" class="read-more-link" read-more-target="#{{ id }} .read-more">Lire la suite...</a>
 	{% endif %}
 	<footer>
 		{% if news.hasAuteur() %}
