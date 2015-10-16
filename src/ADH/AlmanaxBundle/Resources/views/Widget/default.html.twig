@@ -1,0 +1,15 @@
+<aside class="fixed top left almanax openable">
+	<article class="closed">
+		{% include "ADHAlmanaxBundle:Block:minify.html.twig" with { almanax: today } %}
+		{% include "ADHAlmanaxBundle:Block:calendar.html.twig" with { date: "now" } %}
+		<a href="{{ path("adh_almanax_default") }}" title="plus de détails" class="open">Plus de détails...</a>
+	</article>
+	<article class="opened">
+		<a href="#" title="fermer" class="close">&times;</a>
+		<h2>Aujourd'hui</h2>
+		{% include "ADHAlmanaxBundle:Block:detail.html.twig" with { almanax: today } %}
+		<h3>Demain</h3>
+		{% include "ADHAlmanaxBundle:Block:detail.html.twig" with { almanax: tomorrow, bonus: false } %}
+		{% include "ADHAlmanaxBundle:Block:calendar.html.twig" with { date: "now" } %}
+	</article>
+</aside>

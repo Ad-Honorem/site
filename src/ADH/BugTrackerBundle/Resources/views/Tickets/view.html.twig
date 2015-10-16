@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% import "ADHUserBundle:User:Macro.html.twig" as user_utils %}
+	
+	<h2>[ {{ ticket.state }} ] {{ ticket.title }}</h2>
+	{{ ticket.marks }}
+	{% if ticket.hasCategory() %}
+		{{ ticket.category }}
+	{% endif %}
+	<p>
+		{{ ticket.description|bbcode_filter() }}
+	</p>
+	{% if ticket.hasUrl() %}
+		<a href="{{ ticket.url }}">{{ ticket.url }}</a>
+	{% endif %}
+	{% if ticket.hasReporter %}
+		{{ user_utils.user_profil(ticket.reporter) }}
+	{% else %}
+		Anonyme.
+	{% endif %}
+{% endblock content %}

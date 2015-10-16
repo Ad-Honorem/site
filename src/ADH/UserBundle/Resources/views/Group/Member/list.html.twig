@@ -1,0 +1,73 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% import "ADHUserBundle:User:Macro.html.twig" as user_utils %}
+	
+	{% if group.abstract %}
+		<p>Ce groupe est abstrait il ne peut avoir aucun membre</p>
+	{% else %}
+		{% set total = group.userPermissions.count() %}
+		
+		<p>
+			Le groupe compte <strong>{{ total }}</strong> membres.
+		</p>
+		<nav>
+			<a href="{{ path("adh_user_group_member_add", {"group": group.shortRole}) }}" {% if app.request.isXmlHttpRequest() %}class="async-link"{% endif %}>Ajouter un membre</a>
+			<a href="{{ path("adh_user_group_member_remove", {"group": group.shortRole}) }}" {% if app.request.isXmlHttpRequest() %}class="async-link"{% endif %}>Supprimer un membre</a>
+		</nav>
+		<table class="full-width">
+			<thead>
+				<tr>
+					<th rowspan="2">Pseudo</th>
+					<th colspan="4">Droits</th>
+				</tr>
+				<tr>
+					<th>Gestion des membre</th>
+					<th>Gestion des sous groupes</th>
+					<th>Gestion du groupe</th>
+					<th>Droits spéciaux</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						Page {{ page + 1 }}/{{ (total / size)|round(0, "ceil") }}
+					</td>
+					<td colspan="4">
+						{% if page > 0 %}<a href="{{ path("adh_user_group_member_list", {"group": group.shortRole, "page": page - 1, "size": size}) }}" {% if app.request.isXmlHttpRequest() %}class="async-link"{% endif %}>Précédent</a>{% endif %}
+						{% if (size * (page + 1)) < total %}<a href="{{ path("adh_user_group_member_list", {"group": group.shortRole, "page": page + 1, "size": size}) }}" {% if app.request.isXmlHttpRequest() %}class="async-link"{% endif %}>Suivant</a>{% endif %}
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				{% for permission in group.userPermissions.slice(page * size, size) %}
+					<tr>
+						<td>
+							{{ user_utils.user_profil(permission.user, "icon") }}
+						</td>
+						<td>
+							{% if permission.hasAddMemberRight() %}<span class="right">Ajouter</span>{% endif %}
+							{% if permission.hasRemoveMemberRight() %}<span class="right">Supprimer</span>{% endif %}
+							{% if permission.hasChangeStatusRight() %}<span class="right">Changer le status</span>{% endif %}
+							{% if permission.hasDelegateRight() %}<span class="right">Deleger</span>{% endif %}
+						</td>
+						<td>
+							{% if permission.hasCreateChildGroupRight() %}<span class="right">Créer</span>{% endif %}
+							{% if permission.hasAddChildGroupRight() %}<span class="right">Inviter</span>{% endif %}
+							{% if permission.hasRemoveChildGroupRight() %}<span class="right">Supprimer</span>{% endif %}
+						</td>
+						<td>
+							{% if permission.hasJoinParentGroupRight() %}<span class="right">Rejoindre</span>{% endif %}
+							{% if permission.hasLeaveParentGroupRight() %}<span class="right">Quitter</span>{% endif %}
+							{% if permission.hasRenameRight() %}<span class="right">Renommer</span>{% endif %}
+							{% if permission.hasDeleteRight() %}<span class="right">Supprimer</span>{% endif %}
+						</td>
+						<td>
+							{% if permission.hasSpecialRight() %}<span class="right">Droit spéciaux</span>{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+{% endblock content %}

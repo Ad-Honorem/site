@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <h3>Pari sur {{m.equipeA}}  <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeA.id})}}"><img src="{{asset(m.equipeA.getDrapeau)}}" alt="{{m.equipeA}}"  width=35 /></a> -  <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeB.id})}}"><img src="{{asset(m.equipeB.getDrapeau)}}" alt="{{m.equipeB}}"  width=35 /></a> {{m.equipeB}}</h3>
+    <hr>
+    La valeur du pari doit être comprise entre 2000 et 1M de kamas.
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.pseudo) }}
+    {{ form_row(form.montant) }} 
+    {{ form_row(form.resultat) }}
+    <br />
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-4">
+            <input type="submit" value="Parier" class="btn btn-info form-control" /> 
+        </div>
+        <div class="col-sm-offset-1 col-sm-4">
+            <input type="reset" value="Annuler" class="btn btn-danger form-control" onclick='location.href = "{{ path('adh_bet_match') }}"' />
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock content %}

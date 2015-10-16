@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<h2>Editer une news</h2>
+	<hr>
+	{{ form_start(form) }}
+		{{ form_errors(form) }}
+		
+		{{ form_row(form.titre) }}
+		{{ form_row(form.texte, { "attr": { "rows": 8 } }) }}
+		{{ form_row(form.category) }}
+		{{ form_row(form.source) }}
+
+		<div class="form-group">
+			<div class="col-sm-offset-1 col-sm-4">
+				<input type="submit" value="Editer" class="btn btn-info form-control" />
+			</div>
+			<div class="col-sm-offset-1 col-sm-4">
+				<input type="reset" value="Annuler" class="btn btn-danger form-control" onclick='location.href = "{{ path("adh_news_view_default") }}"' />
+			</div>
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

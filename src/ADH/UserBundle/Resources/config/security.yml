@@ -1,0 +1,11 @@
+security:
+    encoders:
+        ADH\UserBundle\Entity\User:
+            algorithm:  bcrypt
+            cost:       13
+    firewalls:
+        default:
+            anonymous: ~
+    providers:
+        adh:
+            id:         adh_user.user_manager

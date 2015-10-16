@@ -1,0 +1,17 @@
+{% extend "ADHSkeletonBundle:Mail:base.html.twig" %}
+
+{% block subject %}Bienvenue sur ADH{% endblock subject %}
+
+{% block content %}
+Bienvenue {{ user.pseudo }},<br />
+<br />
+blablabla.<br />
+<br />
+Veuillez valider votre mail en <a href="{{ path("adh_user_token_email", {"email": email, "token": token}) }}" target="_blank">cliquant ici</a><br />
+Si le lien ne marche pas copier coller l'adresse suivante dans votre navigateur : {{ path("adh_user_token_email", {"email": email, "token": token}) }}<br />
+Vous pouvez également rentrer les informations suivante par vous même à l'adresse {{ path("adh_user_token_email ") }} :<br />
+<ul>
+	<li>Email: {{ user.email }}</li>
+	<li>Token: {{ token }}</li>
+</ul>
+{% endblock content %}

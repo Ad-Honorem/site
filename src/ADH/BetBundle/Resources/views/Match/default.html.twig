@@ -1,0 +1,76 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path("adh_bet_match_add") }}">Ajouter un match</a><br />
+    {% endif %}
+    <a href="{{ path("adh_bet_default_classement") }}">Classements</a> - <a href="{{ path("adh_bet_team_all") }}">Liste des équipes</a>
+    {% if aVenir|length > 0 %}
+        <h3>Liste des matchs à venir : </h3><br />
+        <table class="table table-condensed text-center">
+            <tr>
+                <th>
+                    Type
+                </th>
+                <th>Equipe A</th>
+                <th>Score</th>
+                <th>Equipe B</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Paris</th>
+            </tr>
+            {% for m in aVenir %}
+                <tr>
+                    <td>{% if m.type =="poule" %}Poule {{m.equipeA.poule}}{% else %}{{m.type}}{% endif %}</td>
+                    <td class="align-right">{{ m.equipeA }} <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeA.id})}}"><img src="{{asset(m.equipeA.getDrapeau)}}" alt="{{m.equipeA}}"  width=35 /></a></td>
+                    <td>{{ m.getScore }}</td>
+                    <td class="align-left">
+                        <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeB.id})}}">
+                            <img src="{{asset(m.equipeB.getDrapeau)}}" alt="{{m.equipeB}}"  width=35 />
+                        </a> {{ m.equipeB }}</td> 
+                    <td>{{ m.ladate|date('d-m') }}</td>
+                    <td>{{ m.ladate|date('H:i') }}</td>
+                    <td>{{ m.getMatchparis|length }} - <a href="{{ path("adh_bet_match_view", {"match": m.getId}) }}">Parier </a></td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+    {% endif %}
+    <br />
+    <hr >
+    {% if aVenir|length > 0 %}
+        <h3>Liste des matchs passés : </h3><br />
+        <table class="table table-condensed text-center">
+            <tr>
+                <th>
+                    Poule
+                </th>
+                <th>Equipe A</th>
+                <th>Score</th>
+                <th>Equipe B</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Paris</th>
+            </tr>
+            {% for m in passes  %}
+                <tr>
+                    <td>{{m.equipeA.poule}}</td>
+                    <td class="align-right">{{ m.equipeA }} 
+                        <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeA.id})}}">
+                            <img src="{{asset(m.equipeA.getDrapeau)}}" alt="{{m.equipeA}}"  width=35 /></a></td>
+                    <td>{{ m.getScore }}</td>
+                    <td class="align-left">
+                        <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeB.id})}}">
+                            <img src="{{asset(m.equipeB.getDrapeau)}}" alt="{{m.equipeB}}"  width=35 />
+                        </a>
+                        {{ m.equipeB }}</td> 
+                    <td>{{ m.ladate|date('d-m') }}</td>
+                    <td>{{ m.ladate|date('H:i') }}</td>
+                    <td>{{ m.getMatchparis|length }} - <a href="{{ path("adh_bet_match_view", {"match": m.getId}) }}">Détails</a></td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    {% endif %}
+{% endblock content %}

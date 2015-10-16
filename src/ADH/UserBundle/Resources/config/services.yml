@@ -1,0 +1,44 @@
+services:
+    adh_user.entity_manager:
+        class:                      "Doctrine\\ORM\\EntityManager"
+        factory:                    [ "@doctrine", "getManager" ]
+        arguments:                  [ "default" ]
+
+    adh_user.user_token_factory:
+        class:                      "ADH\\UserBundle\\Service\\UserTokenFactory"
+        arguments:
+            entityManager:          "@adh_user.entity_manager"
+
+    adh_user.user_manager:
+        class:                      "ADH\\UserBundle\\Service\\UserManager"
+        arguments:
+            encoderFactory:         "@security.encoder_factory"
+            tokenStorage:           "@security.token_storage"
+            entityManager:          "@adh_user.entity_manager"
+            userTokenFactory:       "@adh_user.user_token_factory"
+
+    security.role_hierarchy:
+        class:                      "ADH\\UserBundle\\Service\\GroupHierarchy"
+        arguments:
+            hierarchy:              "%security.role_hierarchy.roles%"
+            entityManager:          "@adh_user.entity_manager"
+
+    adh_user.group_security_checker:
+        class:                      "ADH\\UserBundle\\Service\\GroupSecurityChecker"
+        arguments:
+            tokenStorage:           "@security.token_storage"
+
+    adh_user.expression_language:
+        class:                      "ADH\\UserBundle\\Service\\ExpressionLanguage"
+
+    adh_user.group_security_listener:
+        class:                      "ADH\\UserBundle\\EventListener\\GroupSecurityListener"
+        arguments:
+            groupSecurityChecker:   "@adh_user.group_security_checker"
+            tokenStorage:           "@security.token_storage"
+            roleHierarchy:          "@security.role_hierarchy"
+            language:               "@adh_user.expression_language"
+            reader:                 "@annotation_reader"
+            adminRole:              "ROLE_ADMIN"
+        tags:
+            - { name: "kernel.event_subscriber" }

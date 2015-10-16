@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<h2>Supprimer une news</h2>
+	<hr>
+	{{ render(controller("ADHNewsBundle:Block:news", { "news": news })) }}
+	{{ form_start(form) }}
+		<div class="col-md-2">
+			<input type="submit" value="Supprimer" class="btn btn-info form-control" /></div>
+		<div class="col-md-2">
+			<input type="reset" value="Annuler" class="btn btn-danger form-control" onclick='location.href = "{{ path('adh_news_view_default') }}"' />
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

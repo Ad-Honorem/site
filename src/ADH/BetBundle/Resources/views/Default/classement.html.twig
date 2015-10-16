@@ -1,0 +1,233 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <h2>Classements</h2><hr>
+    <a href="{{path('adh_bet_match')}}"> Retour à la liste des matchs</a><br />
+    <form action="{{ path('adh_bet_default_classement') }}" {{ form_enctype(form) }} method="POST" id="trier" >
+        <h4>Trier par :</h4>
+        {{ form_widget(form.tri,
+						{ 
+							'attr': {'onChange': "$('#trier').submit()", 'class': 'form-control'}
+						}
+						)
+        }}
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+        <br />
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#general" data-toggle="tab">Général</a></li>
+                <li><a href="#A" data-toggle="tab">Poule A</a></li>
+                <li><a href="#B" data-toggle="tab">Poule B</a></li>
+                <li><a href="#C" data-toggle="tab">Poule C</a></li>
+                <li><a href="#D" data-toggle="tab">Poule D</a></li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="general">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Equipe</th>
+                        <th>Essais</th>
+                        <th>Transfo</th>
+                        <th>Pén</th>
+                        <th>Drops</th>
+                        <th>Mis</th>
+                        <th>Pris</th>
+                        <th>Diff</th>
+                        <th>BO</th>
+                        <th>BD</th>
+                        <th>G</th>
+                        <th>N</th>
+                        <th>P</th>
+                        <th>Points</th>
+                    </tr>
+                    {% for key, value in tab %}
+                        <tr>
+                            <td>
+                                <a href="{{path('adh_bet_team_view', {'equipe' : value["id"]})}}"><img src="{{asset(value["drapeau"])}}" alt="{{key}}"  width=35 /></a> {{key}}</td>
+                            <td>{{value["essais"]}}</td>
+                            <td>{{value["transformations"]}}</td>
+                            <td>{{value["penalites"]}}</td>
+                            <td>{{value["drops"]}}</td>
+                            <td>{{value["mis"]}}</td>
+                            <td>{{value["pris"]}}</td>
+                            <td>{{value["diff"]}}</td>
+                            <td>{{value["bonusO"]}}</td>
+                            <td>{{value["bonusD"]}}</td>
+                            <td>{{value["gagne"]}}</td>
+                            <td>{{value["nul"]}}</td>
+                            <td>{{value["perdu"]}}</td>
+                            <td>{{value["points"]}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="tab-pane" id="A">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Equipe</th>
+                        <th>Essais</th>
+                        <th>Transfo</th>
+                        <th>Pén</th>
+                        <th>Drops</th>
+                        <th>Mis</th>
+                        <th>Pris</th>
+                        <th>Diff</th>
+                        <th>BO</th>
+                        <th>BD</th>
+                        <th>G</th>
+                        <th>N</th>
+                        <th>P</th>
+                        <th>Points</th>
+                    </tr>
+                    {% for key, value in tab %}
+                        {% if value["poule"] == "A" %}
+                            <tr>
+                                <td>
+                                    <a href="{{path('adh_bet_team_view', {'equipe' : value["id"]})}}"><img src="{{asset(value["drapeau"])}}" alt="{{key}}"  width=35 /></a> {{key}}</td>
+                                <td>{{value["essais"]}}</td>
+                                <td>{{value["transformations"]}}</td>
+                                <td>{{value["penalites"]}}</td>
+                                <td>{{value["drops"]}}</td>
+                                <td>{{value["mis"]}}</td>
+                                <td>{{value["pris"]}}</td>
+                                <td>{{value["diff"]}}</td>
+                                <td>{{value["bonusO"]}}</td>
+                                <td>{{value["bonusD"]}}</td>
+                                <td>{{value["gagne"]}}</td>
+                                <td>{{value["nul"]}}</td>
+                                <td>{{value["perdu"]}}</td>
+                                <td>{{value["points"]}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="tab-pane" id="B">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Equipe</th>
+                        <th>Essais</th>
+                        <th>Transfo</th>
+                        <th>Pén</th>
+                        <th>Drops</th>
+                        <th>Mis</th>
+                        <th>Pris</th>
+                        <th>Diff</th>
+                        <th>BO</th>
+                        <th>BD</th>
+                        <th>G</th>
+                        <th>N</th>
+                        <th>P</th>
+                        <th>Points</th>
+                    </tr>
+                    {% for key, value in tab %}
+                        {% if value["poule"] == "B" %}
+                            <tr>
+                                <td><a href="{{path('adh_bet_team_view', {'equipe' : value["id"]})}}"><img src="{{asset(value["drapeau"])}}" alt="{{key}}"  width=35 /></a> {{key}}</td>
+                                <td>{{value["essais"]}}</td>
+                                <td>{{value["transformations"]}}</td>
+                                <td>{{value["penalites"]}}</td>
+                                <td>{{value["drops"]}}</td>
+                                <td>{{value["mis"]}}</td>
+                                <td>{{value["pris"]}}</td>
+                                <td>{{value["diff"]}}</td>
+                                <td>{{value["bonusO"]}}</td>
+                                <td>{{value["bonusD"]}}</td>
+                                <td>{{value["gagne"]}}</td>
+                                <td>{{value["nul"]}}</td>
+                                <td>{{value["perdu"]}}</td>
+                                <td>{{value["points"]}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="tab-pane" id="C">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Equipe</th>
+                        <th>Essais</th>
+                        <th>Transfo</th>
+                        <th>Pén</th>
+                        <th>Drops</th>
+                        <th>Mis</th>
+                        <th>Pris</th>
+                        <th>Diff</th>
+                        <th>BO</th>
+                        <th>BD</th>
+                        <th>G</th>
+                        <th>N</th>
+                        <th>P</th>
+                        <th>Points</th>
+                    </tr>
+                    {% for key, value in tab %}
+                        {% if value["poule"] == "C" %}
+                            <tr>
+                                <td>
+                                    <a href="{{path('adh_bet_team_view', {'equipe' : value["id"]})}}"><img src="{{asset(value["drapeau"])}}" alt="{{key}}"  width=35 /></a> {{key}}</td>
+                                <td>{{value["essais"]}}</td>
+                                <td>{{value["transformations"]}}</td>
+                                <td>{{value["penalites"]}}</td>
+                                <td>{{value["drops"]}}</td>
+                                <td>{{value["mis"]}}</td>
+                                <td>{{value["pris"]}}</td>
+                                <td>{{value["diff"]}}</td>
+                                <td>{{value["bonusO"]}}</td>
+                                <td>{{value["bonusD"]}}</td>
+                                <td>{{value["gagne"]}}</td>
+                                <td>{{value["nul"]}}</td>
+                                <td>{{value["perdu"]}}</td>
+                                <td>{{value["points"]}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="tab-pane" id="D">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Equipe</th>
+                        <th>Essais</th>
+                        <th>Transfo</th>
+                        <th>Pén</th>
+                        <th>Drops</th>
+                        <th>Mis</th>
+                        <th>Pris</th>
+                        <th>Diff</th>
+                        <th>BO</th>
+                        <th>BD</th>
+                        <th>G</th>
+                        <th>N</th>
+                        <th>P</th>
+                        <th>Points</th>
+                    </tr>
+                    {% for key, value in tab %}
+                        {% if value["poule"] == "D" %}
+                            <tr>
+                                <td><a href="{{path('adh_bet_team_view', {'equipe' : value["id"]})}}"><img src="{{asset(value["drapeau"])}}" alt="{{key}}"  width=35 /></a> {{key}}</td>
+                                <td>{{value["essais"]}}</td>
+                                <td>{{value["transformations"]}}</td>
+                                <td>{{value["penalites"]}}</td>
+                                <td>{{value["drops"]}}</td>
+                                <td>{{value["mis"]}}</td>
+                                <td>{{value["pris"]}}</td>
+                                <td>{{value["diff"]}}</td>
+                                <td>{{value["bonusO"]}}</td>
+                                <td>{{value["bonusD"]}}</td>
+                                <td>{{value["gagne"]}}</td>
+                                <td>{{value["nul"]}}</td>
+                                <td>{{value["perdu"]}}</td>
+                                <td>{{value["points"]}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endblock content %}

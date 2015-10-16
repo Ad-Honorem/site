@@ -1,0 +1,9 @@
+services:
+    adh_skeleton.navbar:
+        class:  "ADH\\SkeletonBundle\\Service\\Navbar"
+
+    app.twig_extension:
+        class:  "ADH\\SkeletonBundle\\Service\\TwigExtension"
+        public: false
+        tags:
+            - { name: "twig.extension" }

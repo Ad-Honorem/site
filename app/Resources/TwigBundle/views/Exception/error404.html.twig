@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+	Page introuvable
+{% endblock title %}
+{% block content %}
+	<h1>Page introuvable</h1>
+	<p>
+		La page que vous avez demandé n'existe pas.<br />
+		<a href="{{ path("homepage") }}">Retourner sur le site</a>
+	</p>
+{% endblock content %}

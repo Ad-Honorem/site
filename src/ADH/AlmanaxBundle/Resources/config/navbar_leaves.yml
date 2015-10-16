@@ -1,0 +1,10 @@
+services:
+    adh_almanax.navbar.almanax_leaf:
+        public: false
+        class:  "ADH\\AlmanaxBundle\\Service\\NavbarLeaves\\AlmanaxLeaf"
+        arguments:
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator"
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: 25 }

@@ -1,0 +1,1 @@
+{% extends "ADHSkeletonBundle:" ~ (app.request.isXmlHttpRequest() ? "Ajax" : "HTTP") ~ ":base.html.twig" %}

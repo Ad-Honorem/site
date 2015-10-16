@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% import "ADHUserBundle:Group:Macro.html.twig" as utils %}
+	
+	<p>{{ total }} Groupes</p>
+	<ul>
+	{% for group in groups %}
+		<li><a href="{{ path("adh_user_group_default_view", {"group": group.shortRole}) }}">{{ utils.group_name(group) }}</a></li>
+	{% endfor %}
+	</ul>
+	<p>
+		{% if page > 0 %}
+			<a href="{{ path("adh_user_group", {"page": page - 1, "size": size}) }}">Précédent</a>
+		{% endif %}
+		{% if (size * (page + 1)) < total %}
+			<a href="{{ path("adh_user_group", {"page": page + 1, "size": size}) }}">Suivant</a>
+		{% endif %}
+	</p>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<h2>Ajouter une catégorie</h2>
+	<hr>
+	{{ form_start(form) }}
+		{{ form_errors(form) }}
+		<div class="form-group">
+			<div class="col-md-2">
+				{{ form_row(form.nom) }}
+			</div>
+			<div class="col-md-4">
+				{{ form_widget(form.nom) }}
+			</div>
+			<div class="col-md-2">
+				<input type="submit" value="Créer" class="btn btn-info form-control" />
+			</div> 
+			<div class="col-md-2">
+				<input type="reset" value="Annuler" class="btn btn-danger form-control" onclick='location.href = "{{ path('adh_news_view_default') }}"' />
+			</div>
+		</div>
+	{{ form_end(form) }}
+</div>
+{% endblock content %}

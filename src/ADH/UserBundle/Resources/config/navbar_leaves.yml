@@ -1,0 +1,55 @@
+services:
+    adh_user.navbar.account_leaf:
+        public: false
+        class:  "ADH\\UserBundle\\Service\\NavbarLeaves\\AccountLeaf"
+        arguments:
+            autorization_checker:   "@security.authorization_checker"
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator"
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: 50 }
+
+    adh_user.navbar.register_leaf:
+        public: false
+        class:  "ADH\\UserBundle\\Service\\NavbarLeaves\\RegisterLeaf"
+        arguments:
+            autorization_checker:   "@security.authorization_checker"
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator"
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: -95 }
+
+    adh_user.navbar.login_leaf:
+        public: false
+        class:  "ADH\\UserBundle\\Service\\NavbarLeaves\\LoginLeaf"
+        arguments:
+            autorization_checker:   "@security.authorization_checker"
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator"
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: -100 }
+
+    adh_user.navbar.logout_leaf:
+        public: false
+        class:  "ADH\\UserBundle\\Service\\NavbarLeaves\\LogoutLeaf"
+        arguments:
+            autorization_checker:   "@security.authorization_checker"
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator"
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: -100 }
+
+    adh_user.navbar.leave_leaf:
+        public: false
+        class:  "ADH\\UserBundle\\Service\\NavbarLeaves\\LeaveLeaf"
+        arguments:
+            autorization_checker:   "@security.authorization_checker"
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator"
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: -100 }

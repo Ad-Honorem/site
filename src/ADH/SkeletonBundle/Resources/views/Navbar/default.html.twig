@@ -1,0 +1,12 @@
+<nav class="fixed left nav-main">
+	<ul class="nav-link-list">
+		<li class="zaap">
+			<a href="{{ path("homepage") }}" title="Accueil"></a>
+		</li>
+		{% for leaf in leaves %}
+			<li class="leaf {% if leaf.opened %}visible{% endif %} {% if leaf.current %}current{% endif %}">
+				<a href="{{ leaf.route }}" title="{{ leaf.name }}">{{ leaf.name }}<span class="icon {{ leaf.icon }}"></span></a>
+			</li>
+		{% endfor %}
+	</ul>
+</nav>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>
+			{% block title %}ADH{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{% stylesheets output="css/main.css"
+				"vendor/css/bootstrap.css"
+				"@ADHSkeletonBundle/Resources/public/css/main.css"
+				"@ADHSkeletonBundle/Resources/public/css/news.css"
+				"@ADHSkeletonBundle/Resources/public/css/loader.css"
+				"@ADHSkeletonBundle/Resources/public/css/popup.css"
+				"@ADHSkeletonBundle/Resources/public/css/almanax.css"
+				"@ADHSkeletonBundle/Resources/public/css/nav-feedback.css"
+				"@ADHSkeletonBundle/Resources/public/css/nav-main.css"
+				"@ADHSkeletonBundle/Resources/public/css/nav-right.css"
+			%}
+				<link rel="stylesheet" href="{{ asset_url }}" />
+			{% endstylesheets %}
+			<link rel="stylesheet" href="/adh/web/vendor/css/default/wbbtheme.css" />
+		{% endblock %}
+		<link rel="icon" type="image/x-icon" href="{% block favicon %}{{ asset("favicon.ico") }}{% endblock favicon %}" />
+	</head>
+	<body>
+		{% block body %}
+			<main role="main">
+				{% block flashes %}
+					<aside class="flashes">
+						{% for type, messages in app.session.flashbag.all %}
+							{% for message in messages %}
+								<p class="alert alert-{{ type }}">
+									{{ message }}
+								</p>
+							{% endfor %}
+						{% endfor %}
+					</aside>
+				{% endblock flashes %}
+				{% block content %}{% endblock content %}
+			</main>
+			
+			{% block navFeedback %}
+				{% embed "ADHSkeletonBundle:Block:nav-feedback.html.twig" %}
+					{% block articleSelector %}{% endblock articleSelector %}
+					{% block subtitle %}{% endblock subtitle %}
+				{% endembed %}
+			{% endblock navFeedback %}
+			
+			{{ render(controller("ADHSkeletonBundle:Navbar:default")) }}
+			{{ render(controller("ADHAlmanaxBundle:Widget:default")) }}
+			{% include "ADHSkeletonBundle:Block:nav-right.html.twig" %}
+			<div class="popup-background"></div>
+		{% endblock body %}
+		{% block javascripts %}
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			{% javascripts output="js/main.js"
+				"vendor/js/bootstrap.js"
+				"vendor/js/wysibb.js"
+				"@ADHSkeletonBundle/Resources/public/js/async.js"
+				"@ADHSkeletonBundle/Resources/public/js/openable.js"
+				"@ADHSkeletonBundle/Resources/public/js/readMore.js"
+				"@ADHWYSIWYGBundle/Resources/public/js/wysiwyg.js"
+			%}
+				<script src="{{ asset_url }}"></script>
+			{% endjavascripts %}
+		{% endblock %}
+	</body>
+</html>

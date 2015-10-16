@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{{ form_start(form, {"action": path("adh_user_user_account_email")}) }}
+		{{ form_errors(form) }}
+		<div>
+			{{ form_label(form.email) }}
+			{{ form_errors(form.email) }}
+			{{ form_widget(form.email) }}
+		</div>
+		
+		<div>
+			{{ form_widget(form.submit) }}
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

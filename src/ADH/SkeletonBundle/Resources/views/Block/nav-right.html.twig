@@ -1,0 +1,19 @@
+<aside class="fixed top right nav-right {% if app.user %}openable{% endif %}">
+	<div class="nav-right-connection-bg"></div>
+	<div class="nav-right-main">
+	</div>
+	<header class="nav-right-connection">
+		{% if app.user %}
+			<img src="{{ asset("images/avatar.jpg") }}" alt="Avatar" class="avatar full-height" />
+			<dl class="infos">
+				<dt class="pseudo">
+					<a href="{{ path("adh_user_user_account") }}" title="Plus d'infos" class="open">{{ app.user.pseudo }}</a>
+				</dt>
+				<dd class="connected-since">Connecté depuis 1 heure</dd>
+				<dd class="last-connection">Derniere connexion il y a 3 mois</dd>
+			</dl>
+		{% else %}
+			<a href="{{ path("adh_user_login") }}">Se connecter</a>
+		{% endif %}
+	</header>
+</aside>

@@ -1,0 +1,15 @@
+parameters:
+#    parameter_name: value
+
+services:
+    adh.mailer:
+        class:              "ADH\\Service\\Mailer"
+        arguments:
+            mailer:         "@mailer"
+            request_stack:  "@request_stack"
+            http_kernel:    "@http_kernel"
+
+    twig.extension.text:
+        class:              "Twig_Extensions_Extension_Text"
+        tags:
+            - { name: twig.extension }

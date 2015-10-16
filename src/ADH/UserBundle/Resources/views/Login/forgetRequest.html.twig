@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<article style="margin: auto; max-width: 660px;">
+		{{ form_start(form, {"action": path("adh_user_login_forgetrequest")}) }}
+			{{ form_errors(form) }}
+			
+			{# Email #}
+			{{ form_row(form.email) }}
+			
+			{# submit #}
+			{{ form_row(form.submit) }}
+		{{ form_end(form) }}
+	</article>
+{% endblock content %}

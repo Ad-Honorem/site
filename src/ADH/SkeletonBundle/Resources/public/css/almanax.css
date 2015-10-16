@@ -1,0 +1,104 @@
+.almanax * {
+	line-height: 1.42;
+}
+.almanax .close {
+	line-height: 1;
+}
+.almanax .closed,
+.almanax .opened {
+	color: white;
+	position: absolute;
+	transition: margin-top 1s;
+}
+
+/* preview version */
+.almanax .closed {
+	margin-left: 230px;
+	width: 246px;
+	height: 94px;
+	
+	background-image: url(../images/almanax/close.png);
+	
+	padding: 27px 13px 13px 15px;
+}
+.almanax.opened .closed {
+	margin-top: -246px;
+}
+
+/* full version */
+.almanax .opened {
+	margin-top: -713px;
+	width: 713px;
+	height: 530px;
+	
+	background-image: url(../images/almanax/open.png);
+	
+	padding: 70px 95px 150px 195px;
+}
+.almanax.opened .opened {
+	margin-top: 0px;
+}
+.almanax .opened .close {
+	position: absolute;
+	
+	top: 73px;
+	right: 98px;
+	
+	display: inline-block;
+	
+	width: 26px;
+	height: 26px;
+	
+	text-align: center;
+	font-size: 18px;
+	color: white;
+	
+	border: 1px solid white;
+	border-radius: 50%;
+}
+
+.almanax p.quantity,
+.almanax p.object {
+	display: inline-block;
+}
+
+.almanax .calendar {
+	position: absolute;
+	
+	width: 53px;
+	height: 69px;
+	
+	padding: 10px 10px 10px 10px;
+	
+	background-image: url(../images/almanax/calendar.png);
+}
+.almanax .calendar p {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: default;
+	
+	text-align: center;
+}
+.almanax .calendar p.month {
+	margin: 3px 0 0 0;
+}
+.almanax .calendar p.day {
+	color: #333333;
+	
+	font-size: 20px;
+	
+	margin: 0 0 0 1px;
+}
+
+.almanax .closed .calendar {
+	top: 78px;
+	left: 10px;
+}
+.almanax .opened .calendar {
+	top: 376px;
+	left: 195px;
+}

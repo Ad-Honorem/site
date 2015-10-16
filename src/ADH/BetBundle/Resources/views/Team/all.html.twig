@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <h2>Liste des équipes</h2>
+    <hr>
+    <div>
+        <a href="{{path('adh_bet_match')}}"> Retour à la liste des matchs</a> - <a href="{{ path("adh_bet_default_classement") }}">Classements</a><br />
+        <br />
+            {% for e in equipes %}
+                <div class="col-md-3">
+                    <a href="{{path('adh_bet_team_view', {'equipe' : e.id})}}"><img src="{{asset(e.getDrapeau)}}" alt="{{e}}"  width=35 /></a> {{e}}
+                </div>
+            {% endfor %}
+    </div>
+{% endblock content %}

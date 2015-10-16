@@ -1,0 +1,14 @@
+<aside class="fixed top left full-width nav-feedback">
+	<nav class="nav-infos">
+		{% block articleSelector %}
+			<a href="#" class="nav-selector nav-selector-article"></a>
+		{% endblock articleSelector %}
+		<span class="nav-info nav-info-article">{% block articleName %}ADH{% endblock articleName %}</span>
+		{% block subtitle %}
+			<span class="nav-info nav-info-subtitle">{% block subtitleName %}{% endblock subtitleName %}</span>
+			{% block subtitleSelector %}
+				<a href="#" class="nav-selector nav-selector-subtitle"></a>
+			{% endblock subtitleSelector %}
+		{% endblock subtitle %}
+	</nav>
+</aside>

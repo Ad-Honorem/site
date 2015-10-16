@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<h2>{{ news.titre }}</h2>
+	<h4>{{ news.category }} - {{ news.getEtatString }}</h4>
+	<hr>
+	{{ form_start(form) }}
+		{{ form_errors(form) }}
+		
+		{{ form_row(form.etat, { "label" : "Etat : " }) }}
+		{{ form_row(form.motifRefus, { "label" : "Motif : " }) }}
+
+		<div class="form-group">
+			<div class="col-sm-offset-1 col-sm-4">
+				<input type="submit" value="Modifier" class="btn btn-info form-control" />
+			</div>
+			<div class="col-sm-offset-1 col-sm-4">
+				<input type="reset" value="Annuler" class="btn btn-danger form-control" onclick='location.href = "{{ path("adh_news_view_default") }}"' />
+			</div>
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

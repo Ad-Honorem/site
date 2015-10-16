@@ -1,0 +1,24 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{{ form_start(form) }}
+		<div>
+			{{ form_label(form.add_member_right) }}
+			{{ form_widget(form.add_member_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.remove_member_right) }}
+			{{ form_widget(form.remove_member_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.change_status_right) }}
+			{{ form_widget(form.change_status_right) }}
+		</div>
+		
+		<div>
+			{{ form_widget(form.delegate) }}
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

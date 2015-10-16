@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% import "ADHUserBundle:Group:Macro.html.twig" as group_utils %}
+	{% set total = group.children.count() %}
+	
+	<h1>{{ group_utils.group_name(group) }}</h1>
+	{% if total == 0 %}
+		<p>Ce groupe ne possede pas de sous groupe</p>
+	{% else %}
+		<p>{{ total }} sous groupes</p>
+		{% include "ADHUserBundle:Group/Block:tableChild.html.twig" with {"children" : group.children.slice(page * size, size)} %}
+		<p>
+		{% if page > 0 %}
+			<a href="{{ path("adh_user_group_child_list", {"group": group.shortRole, "page": page - 1, "size": size}) }}">Précédent</a>
+		{% endif %}
+		{% if (size * (page + 1)) < total %}
+			<a href="{{ path("adh_user_group_child_list", {"group": group.shortRole, "page": page + 1, "size": size}) }}">Suivant</a>
+		{% endif %}
+		</p>
+	{% endif %}
+{% endblock content %}

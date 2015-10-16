@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+<h3> Valider un pari</h3><br />
+ <hr>
+    <div class="row">
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_errors(form) }}
+                {{p.pseudo}} a parié {{p.montant}} sur 
+                {% if p.resultat == 1 %}
+                    {{p.getMatch.equipeA}}
+                {% elseif p.resultat == 2 %} 
+                    un match nul 
+                {% else %}
+                    {{p.getMatch.equipeB}}
+                {% endif %} 
+                le {{p.getLaDate|date('d-m')}} à {{p.getLaDate|date('h:i')}}
+            </div>
+            <input type="submit" value="Valider" class="btn btn-info form-control" /> - 
+            <input type="reset" value="Annuler" class="btn btn-danger form-control" onclick='location.href = "{{ path('adh_bet_match') }}"' />
+            {{ form_end(form) }}
+    </div>
+
+{% endblock content %}

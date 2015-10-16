@@ -1,0 +1,15 @@
+{% if almanax is not null %}
+	{% if not almanax.isCurrentYear() %}
+		<p class="text-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> Recupéré sur le calendrier {{ almanax.date|date("Y") }}.</p>
+	{% endif %}
+	<p class="quest">
+		Rapporter {{ almanax.quantity }} {{ almanax.object }} à Théodoran Ax.
+	</p>
+	{% if bonus is not defined or bonus %}
+		<p class="bonus">
+			Bonus: {{ almanax.bonus }}
+		</p>
+	{% endif %}
+{% else %}
+	{% include "ADHAlmanaxBundle:Block:notfound.html.twig" %}
+{% endif %}

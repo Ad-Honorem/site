@@ -1,0 +1,89 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <a href="{{path('adh_bet_match')}}"> Retour à la liste des matchs</a><br />
+    Date du match : {{m.getLaDate|date('d-m')}} à {{m.getLaDate|date('H:i')}}<br />
+    {% if is_granted('ROLE_ADMIN') and m.getLaDate < date() %}<a href="{{path('adh_bet_match_edit', {'match' : m.id})}}">Modifier le score</a>{% endif %}<br />
+    <table class="table table-condensed text-center">
+        <tr>
+            <td  style="text-align:center;">{{m.equipeA}}  <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeA.id})}}">
+                    <img src="{{asset(m.equipeA.getDrapeau)}}" alt="{{m.equipeA}}"  width=35 /></a></td>
+                    <td  style="text-align:center;">{{m.getScore}}</td> 
+                    <td  style="text-align:center;">
+                         <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeB.id})}}">
+                             <img src="{{asset(m.equipeB.getDrapeau)}}" alt="{{m.equipeB}}"  width=35 /></a> {{m.equipeB}}</td>
+        </tr>
+        <tr>
+            <td>{{m.essaiA}}</td><td>Essais</td><td>{{m.essaiB}}</td>
+        </tr>
+        <tr>
+            <td>{{m.transA}}</td><td>Transformations</td><td>{{m.transB}}</td>
+        </tr>
+        <tr>
+            <td>{{m.penA}}</td><td>Pénalités</td><td>{{m.penB}}</td>
+        </tr>
+        <tr>
+            <td>{{m.dropA}}</td><td>Drops</td><td>{{m.dropB}}</td>
+        </tr>
+    </table>
+    Cotes :<br />
+    {{m.equipeA}} = {{1/(tot1+1)*(tot+1)}}<br />
+    Match nul = {{1/(tot2+1)*(tot+1)}}<br />
+    {{m.equipeB}} = {{1/(tot3+1)*(tot+1)}}<br />
+    <br />
+    <p>Pour parier : n'importe qui peut saisir un pari sur le site avant le début du match dans la limite d'un pari par personne. <br />Pour que le pari soit validé, l'argent doit être encaissé en jeu par Deynis.</p><br />
+    {% if m.getLaDate > date() %}<a href="{{path('adh_bet_default_add', {'match' : m.id})}}">Faire un pari</a>{% else %} Vous ne pouvez plus parier pour ce match.{% endif %}<br />
+    {% if paris|length <1 %}
+        Il n'y a pas encore de pari.
+    {% else %}
+        <h3>Liste des {{paris|length}} paris :</h3>
+        <table class="table table-condensed text-center">
+            <tr>
+                <td>Etat</td>
+                <td>Pseudo</td>
+                <td>Montant</td>
+                <td>Pari sur</td>
+                <td>Gain {% if date() < m.getLaDate %} potentiel {% endif %}</td>
+                {% if is_granted('ROLE_ADMIN') %}<td>Action</td>{% endif%}
+            </tr>
+            {% for p in paris %}
+                <tr title="date du pari : le {{p.getLaDate|date('d-m')}} à {{p.getLaDate|date('H:i')}} "> 
+                    <td>{{p.getEtatString}}</td>
+                    <td>{{p.pseudo}}</td> 
+                    <td>{{p.montant}}</td>
+                    <td>{% if p.resultat == 1 %}{{m.equipeA}}{% elseif p.resultat == 2 %} un match nul {% else %}{{m.equipeB}}{% endif %}</td>
+                    <td>
+                        {% if (date() < m.getLaDate) %}
+                            {% if (p.resultat == 1) %}
+                                {{(p.montant/tot1)*tot}}
+                            {% elseif (p.resultat == 3) %}
+                                {{(p.montant/tot3)*tot}}
+                            {% else %}
+                                {{(p.montant/tot2)*tot}}
+                            {% endif %}
+                        {% else %}
+                            {% if (m.scoreA > m.scoreB) and (p.resultat == 1) %}
+                                {{(p.montant/tot1)*tot}}
+                            {% elseif m.scoreA == m.scoreB and p.resultat == 2 %}
+                                {{(p.montant/tot2)*tot}}
+                            {% elseif m.scoreA < m.scoreB and p.resultat == 3 %}
+                                {{(p.montant/tot3)*tot}}
+                            {% else %}
+                                {{p.montant * -1 }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {% if p.etat == 0 %}
+                                <a href="{{path('adh_bet_default_validate', {'pari' : p.id})}}">[V]</a>
+                            {% endif %}
+                            <a href="{{path('adh_bet_default_delete', {'pari' : p.id})}}">[X]</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        <br />
+
+    {% endblock content %}

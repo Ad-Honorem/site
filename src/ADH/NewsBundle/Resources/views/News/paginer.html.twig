@@ -1,0 +1,55 @@
+<div class="col-md-12 text-center">
+	<div class="col-md-1" title="Première page">
+		<a href="{{chemin}}"><<</a>
+	</div>
+	<div class="col-md-10">
+		{% if pages < 8 %}
+			{% if page != 1 %}
+				<a href="{{chemin}}{{page-1}}" title="Page précédente"><</a>
+			{% endif %}
+			{% for i in 1..pages %}
+				{% if page == i %}
+					[{{i}}]
+				{% else %}
+					<a href="{{chemin}}{{i}}" title="Allez à la page {{i}}">{{i}}</a> 
+				{% endif %}
+			{% endfor %}
+			{% if page != pages %}
+				<a href="{{chemin}}{{page+1}}" title="Page suivante">></a>
+			{% endif %}
+		{% else %}
+			{% if page < 8 %}
+				{% for i in 1..7 %}
+					{% if page == i %}
+						[{{i}}]
+					{% else %}
+						<a href="{{chemin}}{{i}}" title="Allez à la page {{i}}">{{i}}</a> 
+					{% endif %}
+				{%endfor %}
+				...<a href="{{chemin}}{{page+1}}" title="Page suivante">></a>
+			{% elseif page > (pages - 7) %}
+				<a href="{{chemin}}{{page-1}}" title="Page précédente"><</a>...
+				{% for i in (pages-7)..pages %}
+					{% if page == i %}
+						[{{i}}]
+					{% else %}
+						<a href="{{chemin}}{{i}}" title="Allez à la page {{i}}">{{i}}</a> 
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				<a href="{{chemin}}{{page-1}}" title="Page précédente"><</a>...
+				{% for i in (page-3)..(page+3) %}
+					{% if page == i %}
+						[{{i}}]
+					{% else %}
+						<a href="{{chemin}}{{i}}" title="Allez à la page {{i}}">{{i}}</a> 
+					{% endif %}
+				{% endfor %}
+				...<a href="{{chemin}}{{page+1}}" title="Page suivante">></a>
+			{% endif %}
+		{% endif %}
+	</div>
+	<div class="col-md-1" title="Dernière page">
+		<a href="{{chemin}}{{pages}}"> >> </a>
+	</div>
+</div>

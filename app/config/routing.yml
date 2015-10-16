@@ -1,0 +1,34 @@
+adh_almanax:
+    resource:   "@ADHAlmanaxBundle/Controller/"
+    type:       "annotation"
+    prefix:     "/almanax"
+
+adh_bet:
+    resource:   "@ADHBetBundle/Controller/"
+    type:       "annotation"
+    prefix:     "/bets"
+
+adh_bugtracker:
+    resource:   "@ADHBugTrackerBundle/Controller/"
+    type:       "annotation"
+    prefix:     "/bugs"
+
+adh_character:
+    resource:   "@ADHCharacterBundle/Controller/"
+    type:       "annotation"
+    prefix:     "/characters"
+
+adh_news:
+    resource:   "@ADHNewsBundle/Controller/"
+    type:       "annotation"
+    prefix:     "/news"
+
+adh_skeleton:
+    resource:   "@ADHSkeletonBundle/Controller/"
+    type:       "annotation"
+    prefix:     "/"
+
+adh_user:
+    resource:   "@ADHUserBundle/Controller/"
+    type:       "annotation"
+    prefix:     "/"

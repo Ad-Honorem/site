@@ -1,0 +1,100 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<h2>Les news</h2>
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="tabbable">
+			<ul class="nav nav-tabs">
+				<li><a href="#categorie" data-toggle="tab">Categories</a></li>
+				<li class="active"><a href="#news" data-toggle="tab">News</a></li>
+			</ul>
+		</div>
+	{% endif %}
+	<div class="tab-content">
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="tab-pane" id="categorie">
+				<a href="{{ path('adh_news_add_category') }}">Ajouter une catégorie</a><br />
+				{% if categories|length > 0 %}
+					<table class="table table-condensed">
+						<tr>
+							<th>
+								Nom
+							</th>
+							<th>Crée le</th>
+							<th>à</th>
+							<th>Par</th>
+							<th>Action</th>
+						</tr>
+						{% for c in categories %}
+							<tr>
+								<td>{{ c.nom }}</td>
+								<td>{{ c.getCreationDate|date('d-m-Y') }}</td>
+								<td>{{ c.getCreationDate|date('H:i') }}</td>
+								<td>{{ c.getAuteur.pseudo }}</td>
+								<td>
+									<a href="{{ path('adh_news_category_edit', { "categorienews" : c.id }) }}">[E]</a>
+									<a href="{{ path('adh_news_category_delete', { "categorienews" : c.id }) }}">[X]</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					Il n'y a pas encore de catégorie.
+				{% endif %}
+			</div>
+		{% endif %}
+		<div class="tab-pane active" id="news">
+			{% if is_granted('ROLE_ADMIN') %}
+				<a href="{{ path('adh_news_add') }}">Ajouter une news</a><br />
+			{% endif %}
+			{{ form_start(form)}}
+				Catégorie :
+				{{ form_widget(form.category, { "attr": { "onChange": "$('#filter').submit()", "class": "form-control", "id": "flter" } }) }}
+				{{ form_rest(form) }}
+			{{ form_end(form) }}
+			<br />
+			{% if news|length > 0 %}
+				<table class="table table-condensed">
+					<tr>
+						<th>
+							Titre
+						</th>
+						<th>Catégorie</th>
+						<th>Publication</th>
+							{% if is_granted('ROLE_ADMIN') %}
+							<th>Création</th>
+							{% endif %}
+						<th>Edition</th>
+							{% if is_granted('ROLE_ADMIN') %}
+							<th>Etat</th>
+							<th>Action</th>
+							{% endif %}
+					</tr>
+					{% for n in news %}
+						<tr>
+							<td>{{ n.titre }}</td>
+							<td>{% if n.hasCategory() %}{{ n.category }}{% else %}-{% endif %}</td>
+							<td title="{% if n.hasAuteur() %}Créée par {{ n.auteur.pseudo }}{% endif %} {% if n.getPublicationdate != null %} et publiée {{n.getPublicationDate|date('d-m-Y')}}{% endif %}">{% if n.getPublicationdate != null %}{{ n.getPublicationDate|date('d-m-Y') }}{% else %} Non publiée {% endif %}</td>
+							{% if is_granted('ROLE_ADMIN') %}
+								<td title="{% if n.hasAuteur() %}Créée par {{ n.auteur.pseudo }}{% endif %} le {{n.getCreationDate|date('d-m-Y')}}">{{ n.getCreationDate|date('d-m-Y') }}</td>
+							{% endif %}
+							<td {% if n.editeur != null %} title="Editée par {{n.editeur.pseudo}} le {{n.getEditionDate|date('d-m-Y')}}"{% endif%}>{% if n.editeur != null %}{{ n.getEditionDate|date('d-m-Y') }}{% else %} jamais {% endif %}</td>
+							<td>{{ n.getEtatString }}</td>
+							<td>
+								<a href="{{ path("adh_news_view", { "news" : n.id }) }}" title="voir la news"><span class="glyphicon glyphicon-eye-open"></span></a>
+								{% if is_granted('ROLE_ADMIN')%}
+									<a href="{{ path("adh_news_etat", { "news" : n.id }) }}" title="modifier l'état de la news"><span class="glyphicon glyphicon-cog"></span></a>
+									<a href="{{ path("adh_news_edit", { "news" : n.id }) }}" title="éditer la news"><span class="glyphicon glyphicon-pencil"></span></a>
+									<a href="{{ path("adh_news_delete", { "news" : n.id } )}}" title="supprimer la news"><span class="glyphicon glyphicon-trash"></span></a>
+								{% endif %}</td>
+						</tr>
+					{% endfor %}
+				</table>
+				{{ include('ADHNewsBundle:News:paginer.html.twig', { 'news': news, 'pages' : pages, 'page' : page, "chemin" : path('adh_news_view_default') }) }}
+			{% else %}
+				Il n'y a pas encore de news
+			{% endif %}
+		</div>
+
+	</div>
+{% endblock content %}

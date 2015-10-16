@@ -1,0 +1,33 @@
+/* loader */
+.loader {
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+/* horizontal */
+.loader.horizontal-loader {
+	width: 110px;
+	height: 10px;
+	
+	background-image: url(../images/loading/horizontal.gif);
+}
+.loader.dark-loader.horizontal-loader {
+	width: 110px;
+	height: 10px;
+	
+	background-image: url(../images/loading/horizontal-dark.gif);
+}
+
+/* user */
+.loader.user-loader {
+	width: 110px;
+	height: 10px;
+	
+	background-image: url(../images/loading/user.gif);
+}
+.loader.dark-loader.user-loader {
+	width: 110px;
+	height: 10px;
+	
+	background-image: url(../images/loading/user-dark.gif);
+}

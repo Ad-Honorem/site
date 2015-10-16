@@ -1,0 +1,13 @@
+{% extends "ADHSkeletonBundle::base.html.twig" %}
+
+{% block content %}
+	{{ form_start(form, {"action": path("adh_user_account_email")}) }}
+		{{ form_errors(form) }}
+		
+		{# email #}
+		{{ form_row(form.email) }}
+		
+		{# submit #}
+		{{ form_row(form.submit) }}
+	{{ form_end(form) }}
+{% endblock content %}

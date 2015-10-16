@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<article style="margin: auto; max-width: 660px;">
+		{{ form_start(form, {"action": path("adh_user_login_register")}) }}
+			{{ form_errors(form) }}
+			
+			{# Username #}
+			{{ form_row(form.username) }}
+			
+			{# Email #}
+			{{ form_row(form.email) }}
+			
+			{# Password #}
+			{{ form_row(form.plaintext_password) }}
+			
+			{# Register #}
+			{{ form_row(form.register) }}
+			
+			<a href="{{ path("adh_user_login") }}">J'ai déjà un compte</a>
+		{{ form_end(form) }}
+	</article>
+{% endblock content %}

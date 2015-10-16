@@ -1,0 +1,7 @@
+{% import "ADHUserBundle:Group:Macro.html.twig" as utils %}
+
+<ul>
+	{% for child in children %}
+		<li><a href="{{ path("adh_user_group_default_view", {"group": child.superior.shortRole}) }}">{{ utils.group_name(child.superior) }}</a></li>
+	{% endfor %}
+</ul>

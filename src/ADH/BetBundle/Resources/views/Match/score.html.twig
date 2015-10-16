@@ -1,0 +1,34 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+<h3>Saisie du score de {{m.equipeA}}  <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeA.id})}}">
+        <img src="{{asset(m.equipeA.getDrapeau)}}" alt="{{m.equipeA}}"  width=35 /></a> -  <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeB.id})}}"><img src="{{asset(m.equipeB.getDrapeau)}}" alt="{{m.equipeB}}"  width=35 /></a> {{m.equipeB}} </h3>
+    <hr>
+    <div class="row">
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_errors(form) }}
+<table>
+<tr>
+<td>{{m.equipeA}}</td><td>{{m.getScore}}</td><td>{{m.equipeB}}</td>
+</tr>
+<tr>
+<td>{{ form_widget(form.essaiA, { 'attr': {'class': 'form-control'} }) }} </td><td>Essais</td><td>{{ form_widget(form.essaiB, { 'attr': {'class': 'form-control'} }) }}</td>
+<tr>
+<tr>
+<td>{{ form_widget(form.transA, { 'attr': {'class': 'form-control'} }) }} </td><td>Transformations</td><td>{{ form_widget(form.transB, { 'attr': {'class': 'form-control'} }) }}</td>
+<tr>
+<tr>
+<td>{{ form_widget(form.penA, { 'attr': {'class': 'form-control'} }) }} </td><td>Pénalités</td><td>{{ form_widget(form.penB, { 'attr': {'class': 'form-control'} }) }}</td>
+<tr>
+<tr>
+    <td>{{ form_widget(form.dropA, { 'attr': {'class': 'form-control'} }) }} </td><td>Drops</td><td>{{ form_widget(form.dropB, { 'attr': {'class': 'form-control'} }) }}</td>
+</tr>
+</table>
+<br />
+            </div>
+            <input type="submit" value="Valider" class="btn btn-info form-control" /> - 
+            <input type="reset" value="Annuler" class="btn btn-danger form-control" onclick='location.href = "{{ path('adh_bet_match') }}"' />
+            {{ form_end(form) }}
+    </div>
+{% endblock content %}

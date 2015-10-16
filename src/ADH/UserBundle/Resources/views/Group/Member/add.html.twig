@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% set attribute = {} %}
+	
+	{% if app.request.isXmlHttpRequest() %}
+		{% set attribute = {"class": "async-form"} %}
+	{% endif %}
+	{{ form_start(form, { "action": path("adh_user_group_member_add", {"group": group.shortRole}), "attr": attribute}) }}
+		<div>
+			{{ form_label(form.user) }}
+			{{ form_errors(form.user) }}
+			{{ form_widget(form.user) }}
+		</div>
+		
+		<div>
+			{{ form_widget(form.add) }}
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

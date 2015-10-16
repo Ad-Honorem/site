@@ -1,0 +1,10 @@
+services:
+    adh_test.navbar.test_leaf:
+        public: false
+        class:  "ADH\\TestBundle\\Service\\NavbarLeaves\\TestLeaf"
+        arguments:
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator"
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: 100 }

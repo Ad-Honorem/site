@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% import "ADHUserBundle:Group:Macro.html.twig" as group_utils %}
+	<header>
+		<h1>{{ group_utils.group_name(group) }}</h1>
+	</header>
+	<article>
+		<h2>Membres</h2>
+		{{ async(path("adh_user_group_member_list", {"group": group.shortRole, "size": 4}), {"url": path("adh_user_group_member_list", {"group": group.shortRole})}) }}
+	</article>
+	<article>
+		<h2>Sous groupe</h2>
+		{{ async(path("adh_user_group_child_list", {"group": group.shortRole, "size": 4}), {"url": path("adh_user_group_child_list", {"group": group.shortRole})}) }}
+	</article>
+{% endblock content %}

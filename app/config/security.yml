@@ -1,0 +1,39 @@
+security:
+    encoders:
+        ADH\UserBundle\Entity\User:
+            algorithm:  "bcrypt"
+            cost:       13
+
+    providers:
+        adh:
+            id:         "adh_user.user_manager"
+
+    firewalls:
+        dev:
+            pattern:    "^/(_(profiler|wdt)|css|images|js)/"
+            security:   false
+        main:
+            pattern:    "^/"
+            provider:   "adh"
+            anonymous:  ~
+            switch_user:
+                role:                   "ROLE_ADMIN"
+                parameter:              "_switch_to_user"
+            form_login:
+                login_path:             "/login"
+                check_path:             "/check"
+                use_forward:            true
+                username_parameter:     "user_login[username]"
+                password_parameter:     "user_login[password]"
+                remember_me:            true
+            remember_me:
+                key:                    "%secret%"
+                lifetime:               2592000
+                remember_me_parameter:  "user_login[remember_me]"
+            logout:
+                path:                   "/logout"
+                target:                 "/"
+
+    access_control:
+        - { path: "^/user/(register|login|check)", roles: IS_AUTHENTICATED_ANONYMOUSLY } #, requires_channel: https }
+        - { path: "^/user/token", roles: IS_AUTHENTICATED_ANONYMOUSLY }

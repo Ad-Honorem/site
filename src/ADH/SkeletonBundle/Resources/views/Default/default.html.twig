@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<h2>Page d'accueil.</h2>
+	<a href="{{ path("adh_bet_match") }}">
+		Les paris par ici
+	</a>
+	<h3>Dernières news</h3>
+	{{ async(path("adh_news_widget")) }}
+{% endblock content %}

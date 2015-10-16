@@ -1,0 +1,12 @@
+{% macro group_name(group) %}
+	{% if group.abbreviation is not empty %}
+		[{{ group.abbreviation }}]
+	{% endif %}
+	{% if group.name is not empty %}
+		{{ group.name }}
+	{% elseif group.abbreviation is empty %}
+		Role {{ group.shortRole|upper }}
+	{% else %}
+		({{ group.shortRole }})
+	{% endif %}
+{% endmacro %}

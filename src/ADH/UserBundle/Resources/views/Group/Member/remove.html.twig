@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% set attribute = {} %}
+	
+	{% if app.request.isXmlHttpRequest() %}
+		{% set attribute = {"class": "async-form"} %}
+	{% endif %}
+	{{ form_start(form, { "action": path("adh_user_group_member_remove", {"group": group.shortRole}), "attr": attribute}) }}
+		<div>
+			{{ form_label(form.groupUserPermission) }}
+			{{ form_errors(form.groupUserPermission) }}
+			{{ form_widget(form.groupUserPermission) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.confirm) }}
+			{{ form_errors(form.confirm) }}
+			{{ form_widget(form.confirm) }}
+		</div>
+		
+		<div>
+			{{ form_widget(form.remove) }}
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

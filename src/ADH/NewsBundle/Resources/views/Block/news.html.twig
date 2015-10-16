@@ -1,0 +1,30 @@
+{% import "ADHUserBundle:User:Macro.html.twig" as user_utils %}
+
+<blockquote id="{{ id }}" class="news-block {% if news.hasCategory() and news.category.hasType() %}news-block-{{ news.category.type }}{% endif %}">
+	<h4>
+		{% if news.hasCategory() %}
+			<span class="category">
+				[ <a href="{{ path("adh_news_view_default", { (category_field): news.category.id }) }}" title="Voir toute les news de cette catégorie">{{ news.category.nom|capitalize }}</a> ]
+			</span>
+		{% endif %}
+		{{ news.titre }}
+		{% if link %}
+			<a href="{{ path("adh_news_view", { "news": news.id }) }}" class="news-link" title="Voir la news"><span class="glyphicon glyphicon-eye-open"></span></a>
+		{% endif %}
+	</h4>
+	<div class="{% if more %}read-more{% endif %}">
+		{{ news.texte|bbcode_filter() }}
+	</div>
+	{% if more %}
+		<a href="{{ path("adh_news_view", { "news": news.id }) }}" class="read-more-link" read-more-target="#{{ id }} .read-more">Lire la suite...</a>
+	{% endif %}
+	<footer>
+		{% if news.hasAuteur() %}
+			{{ user_utils.user_profil(news.auteur, "icon") }}
+		{% endif %}
+			{{ news.publicationdate|date("\\l\\e d-m-Y \\à H:i")  }}
+		{% if news.hasSource() %}
+			(<a href="{{ news.source }}" title="source : {{ news.source }}">source</a>)
+		{% endif %}
+	</footer>
+</blockquote>

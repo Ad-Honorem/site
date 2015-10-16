@@ -1,0 +1,87 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    <h2>{{equipe}} <img src="{{asset(equipe.getDrapeau)}}" alt="{{equipe}}"  width=35 /></h2>
+    <hr>
+    <div>
+        <a href="{{path('adh_bet_match')}}"> Retour à la liste des matchs</a> - <a href="{{ path("adh_bet_default_classement") }}">Classements</a><br />
+        Matchs gagnés : {{data["gagne"]}} - Matchs nuls : {{data["nul"]}} - Matchs perdus : {{data["perdu"]}}<br />
+        Points : {{data["points"]}}<br />
+        <table class="table table-condensed text-center">
+            <tr>
+                <th>Fidji</th>
+                <th> - </th>
+                <th> Adversaires </th>
+                <th>Différentiel </th>
+            </tr>
+            <tr>
+                <td>{{data["essais"]}}</td>
+                <td>Essais</td>
+                <td>{{data["essaisadv"]}}</td>
+                <td>{{data["essais"] - data["essaisadv"]}}</td>
+            </tr>
+            <tr>
+                <td>{{data["transformations"]}}</td>
+                <td>Transformations</td>
+                <td>{{data["transformations"]}}</td>
+                <td>{{data["transformations"] - data["transformationsadv"]}}</td>
+            </tr>
+            <tr>
+                <td>{{data["drops"]}}</td>
+                <td>Drops</td>
+                <td>{{data["dropsadv"]}}</td>
+                <td>{{data["drops"] - data["dropsadv"]}}</td>
+            </tr>
+            <tr>
+                <td>{{data["penalites"]}}</td>
+                <td>Pénalités</td>
+                <td>{{data["penalitesadv"]}}</td>
+                <td>{{data["penalites"] - data["penalitesadv"]}}</td>
+            </tr>
+            <tr>
+                <td>{{data["mis"]}}</td>
+                <td>Points</td>
+                <td>{{data["pris"]}}</td>
+                <td>{{data["diff"]}}</td>
+            </tr>
+            <tr>
+                <td>{{data["bonusO"]}}</td>
+                <td>Bonus offensif</td>
+                <td>{{data["bonusOadv"]}}</td>
+                <td>{{data["bonusO"] - data["bonusOadv"]}}</td>
+            </tr>
+            <tr>
+                <td>{{data["bonusD"]}}</td>
+                <td>Bonus défensif</td>
+                <td>{{data["bonusDadv"]}}</td>
+                <td>{{data["bonusD"] - data["bonusDadv"]}}</td>
+            </tr>
+        </table>
+        <h3>Liste des matchs : </h3><br />
+        <table class="table table-condensed text-center">
+            <tr>
+                <th>
+                    Type
+                </th>
+                <th>Equipe A</th>
+                <th>Score</th>
+                <th>Equipe B</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Paris</th>
+            </tr>
+            {% for m in matchs  %}
+                <tr>
+                    <td>{% if m.type =="poule" %}Poule {{m.equipeA.poule}}{% else %}{{m.type}}{% endif %}</td>
+                    <td class="align-right">{{ m.equipeA }} <a href="{{path('adh_bet_team_view', {'equipe' : m.equipeA.id})}}"><img src="{{asset(m.equipeA.getDrapeau)}}" alt="{{m.equipeA}}"  width=35 /></a></td>
+                    <td>{{ m.getScore }}</td>
+                    <td class="align-left"><a href="{{path('adh_bet_team_view', {'equipe' : m.equipeB.id})}}"><img src="{{asset(m.equipeB.getDrapeau)}}" alt="{{m.equipeB}}"  width=35 /></a> {{ m.equipeB }}</td> 
+                    <td>{{ m.ladate|date('d-m') }}</td>
+                    <td>{{ m.ladate|date('H:i') }}</td>
+                    <td>{{ m.getMatchparis|length }} - <a href="{{ path("adh_bet_match_view", {"match": m.getId}) }}">{% if m.getLaDate > date() %}Parier {% else %} Détails{% endif %}</a></td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+{% endblock content %}

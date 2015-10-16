@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	<article>
+		<header style="position: relative; height: 125px; width:50%; margin: 0 auto 10px auto;">
+			<img style="vertical-align: top; float: left; margin: 5px 10px 0 0;" src="/adh/web/images/avatar.jpg" alt="Avatar" class="avatar" />
+			<h1 style="font-size: 32px; margin: 10px 0 25px 0; text-decoration: underline;">{{ user.pseudo }}</h1>
+			<p class="subtitle">
+				Humeur:<br />
+				Derniere connexion:
+			</p> 
+		</header>
+		<section>
+			<article>
+				<header>
+					<h2>Information</h2>
+				</header>
+			</article>
+			<article>
+				<header>
+					<h2>Personnages</h2>
+				</header>
+			</article>
+			<article>
+				<header>
+					<h2>Interventions Forum</h2>
+				</header>
+			</article>
+		</section>
+	</article>
+{% endblock content %}

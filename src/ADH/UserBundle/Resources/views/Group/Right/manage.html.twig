@@ -1,0 +1,73 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+	{% import "ADHUserBundle:Group:Macro.html.twig" as group_utils %}
+
+	<h1>Gestion des droits</h1>
+	<h3>Groupe {{ group_utils.group_name(group) }}: droits de {{ user.pseudo }}</h3>
+	{{ form_start(form) }}
+		<div>
+			{{ form_label(form.add_member_right) }}
+			{{ form_widget(form.add_member_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.remove_member_right) }}
+			{{ form_widget(form.remove_member_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.change_status_right) }}
+			{{ form_widget(form.change_status_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.delegate_right) }}
+			{{ form_widget(form.delegate_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.create_child_group_right) }}
+			{{ form_widget(form.create_child_group_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.add_child_group_right) }}
+			{{ form_widget(form.add_child_group_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.remove_child_group_right) }}
+			{{ form_widget(form.remove_child_group_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.join_parent_group_right) }}
+			{{ form_widget(form.join_parent_group_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.leave_parent_group_right) }}
+			{{ form_widget(form.leave_parent_group_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.rename_right) }}
+			{{ form_widget(form.rename_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.delete_right) }}
+			{{ form_widget(form.delete_right) }}
+		</div>
+		
+		<div>
+			{{ form_label(form.special_right) }}
+			{{ form_widget(form.special_right) }}
+		</div>
+		
+		<div>
+			{{ form_widget(form.update_right) }}
+		</div>
+	{{ form_end(form) }}
+{% endblock content %}

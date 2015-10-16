@@ -1,0 +1,10 @@
+services:
+    adh_news.navbar.news_leaf:
+        public: false
+        class:  "ADH\\NewsBundle\\Service\\NewsLeaf" # ici la classe de ton service 
+        arguments:
+            request_stack:          "@request_stack"
+            router:                 "@router"
+            translator:             "@translator" # les arguments changent pas (c'est les services minimum demandé par le abstractnavabar...
+        tags:
+            - { name: "adh_skeleton.navbar.leaf", priority: 100 }

@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+	Accés refusé
+{% endblock title %}
+{% block content %}
+	<h1>Accés refusé</h1>
+	{% if app.user and is_granted("ROLE_PREVIOUS_ADMIN") %}
+		<p>
+			<strong>/!\ Lorsque vous utilisez un compte d'un autre utilisateur vos droits d'accés à certaines pages à caractère confidentiel vous est supprimé (tel que la gestion de compte). /!\</strong>
+		</p>
+	{% endif %}
+	<p>
+		Vous n'avez pas les droits suffisants pour accéder à cette page.<br />
+		<a href="{{ path("homepage") }}">Retourner sur le site</a>
+	</p>
+{% endblock content %}

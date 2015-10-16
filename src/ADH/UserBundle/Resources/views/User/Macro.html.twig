@@ -1,0 +1,4 @@
+{% macro user_profil(user, size) %}
+	<img class="avatar {{ size|default("medium") }}" src="{{ asset("images/avatar.jpg") }}" alt="avatar" /> 
+	<a href="{{ path("adh_user_user_profil", {"pseudo": user.pseudo}) }}" target="_blank">{{ user.pseudo }}</a>
+{% endmacro %}

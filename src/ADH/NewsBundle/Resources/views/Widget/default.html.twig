@@ -1,0 +1,12 @@
+{% import "ADHUserBundle:User:Macro.html.twig" as user_utils %}
+
+{% for new in news.iterator %}
+	{{ render(controller("ADHNewsBundle:Block:news", { "news": new, "prefix": "recent-", "link": true, "more": true })) }}
+{% else %}
+	<p>
+		Aucune news récente.
+	</p>
+{% endfor %}
+<p class="text-center">
+	<a href="{{ path("adh_news_view_default") }}" title="Plus de news...">Plus de news...</a>
+</p>
